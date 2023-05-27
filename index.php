@@ -9,7 +9,10 @@
 </head>
 
 <body>
-    <h1>Hello World</h1>
+    <input type="radio" value="Hello" name="option" id="hello">
+    <label for="hello">Hello</label>
+    <input type="radio" value="Hi" name="option" id="hi">
+    <label for="hi">Hi</label>
 </body>
 
 </html>
