@@ -29,11 +29,11 @@ class user extends dbconnection
 
     public function student_info($id)
     {
-        $sql = "SELECT * FROM student
-        INNER JOIN user ON user.user_id = student.user_id
-        INNER JOIN course ON course.course_id = student.course_id
-        INNER JOIN user_status ON user_status.status_id = student.status_id
-        WHERE student.user_id = '$id'";
+        $sql = "SELECT * FROM student s
+                INNER JOIN user u ON u.user_id = s.user_id
+                INNER JOIN course c ON c.course_id = s.course_id
+                INNER JOIN user_status st ON st.status_id = s.status_id
+                WHERE s.user_id = '$id'";
         $query = $this->connection->query($sql);
         $row = $query->fetch_array();
         return $row;
