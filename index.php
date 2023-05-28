@@ -1,3 +1,6 @@
+<?php
+include_once('classes.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,10 +12,12 @@
 </head>
 
 <body>
-    <input type="radio" value="Hello" name="option" id="hello">
-    <label for="hello">Hello</label>
-    <input type="radio" value="Hi" name="option" id="hi">
-    <label for="hi">Hi</label>
+    <?php
+    $user = new user();
+    $id = 202200360;
+    $info = $user->student_info($id);
+    echo $info['first_name'];
+    ?>
 </body>
 
 </html>

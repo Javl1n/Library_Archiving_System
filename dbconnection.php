@@ -4,7 +4,7 @@ class dbconnection
     private $host = 'localhost';
     private $username = 'root';
     private $password = '';
-    private $database = '';
+    private $database = 'library_archiving_system';
 
     protected $connection;
 
@@ -17,6 +17,6 @@ class dbconnection
                 exit;
             }
         }
-        return $this->connection;   
+        return $this->connection;
     }
 }
