@@ -12,7 +12,7 @@ function myAutoLoaderMain($class_name)
     include_once $full_path;
 }
 
-function myAutoLoader($class_name)
+function myAutoLoaderInclude($class_name)
 {
     $path = "../classes/";
     $extension = ".class.php";
