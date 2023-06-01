@@ -1,5 +1,6 @@
 <?php
-include 'includes/autoloader.inc.php';
+include './includes/autoloader.inc.php';
+spl_autoload_register('myAutoLoaderMain');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,12 +13,7 @@ include 'includes/autoloader.inc.php';
 </head>
 
 <body>
-    <?php
-    $student = new UsersView();
-    $Info = $student->showStudent(202200360);
-    $full_name = $Info['first_name'] . ' ' . $Info['middle_name'] . ' ' . $Info['last_name'];
-    echo 'Full Name: ' . $full_name . '<br>Course: ' . $Info['course_title'] . ' (' . $Info['abbreviation'] . ')';
-    ?>
+    <a href="signup.php">signup</a>
 </body>
 
 </html>
