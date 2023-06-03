@@ -21,6 +21,9 @@ spl_autoload_register('myAutoLoaderMain');
     <?php
     $user = new loginview();
     $user->showUser();
+    echo "<br>";
+    $student = new studentview;
+    $student->showStudentList();
     ?>
 </body>
 
