@@ -9,8 +9,10 @@ class signupcontr extends signup
     private $pwdrepeat;
     private $email;
     private $contact;
+    private $course_id;
+    private $year;
 
-    public function __construct($user_id, $first_name, $middle_name, $last_name, $password, $pwdrepeat, $email, $contact)
+    public function __construct($user_id, $first_name, $middle_name, $last_name, $password, $pwdrepeat, $email, $contact, $course_id, $year)
     {
         $this->user_id = $user_id;
         $this->first_name = $first_name;
@@ -20,6 +22,8 @@ class signupcontr extends signup
         $this->pwdrepeat = $pwdrepeat;
         $this->email = $email;
         $this->contact = $contact;
+        $this->course_id = $course_id;
+        $this->year = $year;
     }
 
     public function signupUser()
@@ -46,6 +50,11 @@ class signupcontr extends signup
         }
 
         $this->setUser($this->user_id, $this->first_name, $this->middle_name, $this->last_name, $this->password, $this->email, $this->contact);
+    }
+
+    public function signupStudent()
+    {
+        $this->setStudent($this->user_id, $this->course_id, $this->year);
     }
 
     private function invalidUid()

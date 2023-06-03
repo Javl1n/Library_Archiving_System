@@ -1,4 +1,5 @@
 <?php
+session_start();
 include './includes/autoloader.inc.php';
 include './includes/css.inc.php';
 spl_autoload_register('myAutoLoaderMain');
@@ -17,9 +18,10 @@ spl_autoload_register('myAutoLoaderMain');
 </head>
 
 <body>
-    <a href="signup.php">signup</a>
-    <br>
-    <a href="login.php">login</a>
+    <?php
+    $user = new loginview();
+    $user->showUser();
+    ?>
 </body>
 
 </html>

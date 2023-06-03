@@ -5,9 +5,9 @@ if (isset($_POST["submit"])) {
 
     include 'autoloader.inc.php';
     spl_autoload_register('myAutoLoaderInclude');
-    $signup = new signupcontr($user_id, $first_name, $middle_name, $last_name, $password, $pwdrepeat, $email, $contact);
+    $signup = new logincontr($user_id, $password);
 
-    $signup->signupUser();
+    $signup->loginUser();
 
     header('location: ../index.php?error=none');
 }

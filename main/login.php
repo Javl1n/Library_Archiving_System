@@ -23,9 +23,9 @@
                 <input type="password" name="password" required>
                 <label>Password</label>
             </div>
-            <input type="submit" value="Login">
+            <input type="submit" name="submit" value="Login">
             <div class="signup_link">
-                Not a member?<a href="#">Signup</a>
+                Not a member?<a href="signup.php">Signup</a>
             </div>
         </form>
     </div>
