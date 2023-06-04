@@ -16,12 +16,12 @@
         <h1>Login</h1>
         <form action="./includes/login.inc.php" method="post">
             <div class="txt_field">
-                <input type="text" name="user_id" required>
-                <label>Student ID</label>
+                <input type="text" name="user_id" placeholder="Student ID" required>
+
             </div>
             <div class="txt_field">
-                <input type="password" name="password" required>
-                <label>Password</label>
+                <input type="password" name="password" placeholder="Password" required>
+
             </div>
             <input type="submit" name="submit" value="Login">
             <div class="signup_link">

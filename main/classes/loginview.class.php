@@ -19,12 +19,7 @@ class loginview extends login
                 echo $result['course_title'];
             }
             ?>
-            <a href="./includes/logout.inc.php">log out</a>
-        <?php
-        } else { ?>
-            <a href="signup.php">signup</a>
-            <br>
-            <a href="login.php">login</a>
+
 <?php
         }
     }

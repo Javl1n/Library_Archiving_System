@@ -22,7 +22,7 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 
 <body>
-    YOU ARE A STUDENT
+    YOU ARE AN ADMIN
     <a href="./includes/logout.inc.php">log out</a>
 </body>
 

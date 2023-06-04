@@ -18,15 +18,17 @@ spl_autoload_register('myAutoLoaderMain');
 
 <body>
     <div class="center">
-        <h1>Login</h1>
+        <h1>Registration</h1>
         <form action="./includes/signup.inc.php" method="POST">
-            <label for="course">Course</label>
-            <select id="course" name="course">
-                <?php
-                $courses = new studentview;
-                $courses->showCourseOptions();
-                ?>
-            </select>
+            <div class="selection">
+                <label for="course">Course</label>
+                <select id="course" name="course">
+                    <?php
+                    $courses = new studentview;
+                    $courses->showCourseOptions();
+                    ?>
+                </select>
+            </div>
             <div class="txt_field">
                 <input type="text" name="user_id" required>
                 <label>Student ID</label>
@@ -34,7 +36,7 @@ spl_autoload_register('myAutoLoaderMain');
 
             <div class="txt_field">
                 <input type="password" name="password" required>
-                <label>Password kani ug confirm kay tapad dapat</label>
+                <label>Password</label>
             </div>
             <div class="txt_field">
                 <input type="password" name="confpassword" required>
@@ -42,30 +44,32 @@ spl_autoload_register('myAutoLoaderMain');
             </div>
             <div class="txt_field">
                 <input type="text" name="first_name" required>
-                <label>first name one line lang ni</label>
+                <label>First Name</label>
             </div>
             <div class="txt_field">
                 <input type="text" name="last_name" required>
-                <label>last name tapad kay middle name</label>
+                <label>Last Name</label>
             </div>
             <div class="txt_field">
                 <input type="text" name="middle_name" required>
-                <label>middle name mas gamay kaysa kay last</label>
+                <label>Middle Name</label>
             </div>
-            <label for="year">Year Level</label>
-            <select id="year" name="year">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-            </select>
+            <div class="selection">
+                <label for="year">Year Level</label>
+                <select id="year" name="year">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
             <div class="txt_field">
                 <input type="email" name="email" required>
-                <label>email tapad sa contact</label>
+                <label>Email</label>
             </div>
             <div class="txt_field">
                 <input type="text" name="contact_number" required>
-                <label>contact</label>
+                <label>Contact</label>
             </div>
 
             <input type="submit" name="submit" value="Register">

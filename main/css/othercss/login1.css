@@ -28,6 +28,28 @@ form .txt_field{
 	border-bottom: 2px solid #adadad;
 	margin: 30px 0;
 }
+
+.selection{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.selection label{
+	color: #6a6767;
+}
+
+.selection select{
+	width: 75%;
+	height: 25px;
+	background: none;
+	border: none;
+	border-bottom: 2px solid #adadad;
+	color: #353535;
+	font-weight: 600;
+	font-size: medium;
+}
+
 .txt_field input{
 	width: 100%;
 	padding: 0 5px;
@@ -41,12 +63,13 @@ form .txt_field{
 	position: absolute;
 	top: 50%;
 	left: 5px;
-	color: #adadad;
+	color: #6a6767;
 	transform: translateY(-50%);
 	font-size: 16px;
 	pointer-events: none;
 	transition: 0.3s;
 }
+
 .txt_field span::before{
 	content: '';
 	position: absolute;
@@ -88,7 +111,7 @@ input[type="submit"]:hover{
 	color: #666666;
 }
 .signup_link a{
-	color: ##fa8c1e;
+	color: #fa8c1e;
 	text-decoration: none;
 }
 .signup_link a:hover{
