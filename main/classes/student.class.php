@@ -59,4 +59,17 @@ class student extends dbconnection
 
         return $results;
     }
+    protected function getStudents_bSt($status)
+    {
+        $sql = "SELECT * FROM student s 
+                INNER JOIN user u ON u.user_id = s.user_id
+                INNER JOIN course c ON c.course_id = s.course_id
+                INNER JOIN user_status st ON st.status_id = s.status_id
+                WHERE s.status_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$status]);
+        $results = $stmt->fetchAll();
+
+        return $results;
+    }
 }

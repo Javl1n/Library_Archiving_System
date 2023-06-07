@@ -3,12 +3,14 @@ session_start();
 include './includes/autoloader.inc.php';
 include './includes/css.inc.php';
 include './includes/js.inc.php';
-include './includes/navbar.admin.php';
+include './includes/admin.navbar.php';
 spl_autoload_register('myAutoLoaderMain');
 
 if (!isset($_SESSION['user_id'])) {
     header('location:login.php');
 }
+
+$page = 1;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +30,7 @@ if (!isset($_SESSION['user_id'])) {
 
 <body>
     <?php
-    student_manage();
+    student_manage($page);
     ?>
     <div class="container-fluid">
         <div class="row">
