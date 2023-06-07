@@ -1,0 +1,29 @@
+<?php
+
+function student_manage()
+{
+?>
+    <nav class='navbar sticky-top navbar-expand-lg bg-white '>
+        <div class='container-fluid'>
+            <a class='navbar-brand' href='article_manage.admin.php'>
+                <img src='./assets/SEAIT.jpg' height='40' alt='seait' class='d-inline-block align-text-center'>
+            </a>
+            <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
+                <span class='navbar-toggler-icon'></span>
+            </button>
+            <div class='collapse navbar-collapse' id='navbarSupportedContent'>
+                <ul class='navbar-nav me-auto mb-2 mb-lg-0'>
+                    <li class='nav-item'>
+                        <p class='h4'><a class='nav-link' href='article_manage.admin.php'>Manage Articles</a></p>
+                    </li>
+                    <li class='nav-item'>
+                        <p class='h4'><a class='nav-link active' aria-current='page' href=' student_manage.admin.php'>Manage Student</a></p>
+                    </li>
+                </ul>
+                <form class='d-flex' role='search' method='post' action='/LIBRARY_ARCHIVING_SYSTEM2/main/includes/logout.inc.php'>
+                    <button class='btn btn-outline-danger p-2' type='submit'>logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+<?php }

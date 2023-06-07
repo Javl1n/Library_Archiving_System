@@ -26,14 +26,35 @@ class student extends dbconnection
         return $results;
     }
 
-    protected function getStudents()
+    protected function getCourselist_bD($id)
+    {
+        $sql = "SELECT * FROM course where department_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id]);
+
+        $results = $stmt->fetchAll();
+        return $results;
+    }
+
+    protected function getDepartmentList()
+    {
+        $sql = "SELECT * FROM department";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+
+        $results = $stmt->fetchAll();
+        return $results;
+    }
+
+    protected function getStudents_bC($cid)
     {
         $sql = "SELECT * FROM student s 
                 INNER JOIN user u ON u.user_id = s.user_id
                 INNER JOIN course c ON c.course_id = s.course_id
-                INNER JOIN user_status st ON st.status_id = s.status_id";
+                INNER JOIN user_status st ON st.status_id = s.status_id
+                WHERE s.course_id = ?";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute();
+        $stmt->execute([$cid]);
         $results = $stmt->fetchAll();
 
         return $results;
