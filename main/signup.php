@@ -51,7 +51,7 @@ spl_autoload_register('myAutoLoaderMain');
                 <label>Last Name</label>
             </div>
             <div class="txt_field">
-                <input type="text" name="middle_name" required>
+                <input type="text" name="middle_name">
                 <label>Middle Name</label>
             </div>
             <div class="selection">
@@ -64,11 +64,11 @@ spl_autoload_register('myAutoLoaderMain');
                 </select>
             </div>
             <div class="txt_field">
-                <input type="email" name="email" required>
+                <input type="email" name="email">
                 <label>Email</label>
             </div>
             <div class="txt_field">
-                <input type="text" name="contact_number" required>
+                <input type="text" name="contact_number">
                 <label>Contact</label>
             </div>
 

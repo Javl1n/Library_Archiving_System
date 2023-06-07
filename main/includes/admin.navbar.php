@@ -1,6 +1,6 @@
 <?php
 
-function student_manage($page)
+function admin_nav($page)
 {
     if ($page == 1) {
         $article = "active' aria-current='page";

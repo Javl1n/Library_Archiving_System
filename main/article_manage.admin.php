@@ -30,7 +30,7 @@ $page = 1;
 
 <body>
     <?php
-    student_manage($page);
+    admin_nav($page);
     ?>
     <div class="container-fluid">
         <div class="row">

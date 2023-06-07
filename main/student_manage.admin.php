@@ -31,36 +31,34 @@ $page = 2;
 
 <body>
     <?php
-    student_manage($page);
+    admin_nav($page);
     ?>
     <div class="container-fluid">
         <div class="row">
-
-            <div class="col-md-3 col-sm-10 bg-dark min-vh-100 collapse collapse-horizontal" id="courses">
-                <div class="row">
-                    <div class="col-md-0 col-sm-1 m-2">
-                        <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#courses" aria-expanded="false" aria-controls="courses">
-                            Close
-                        </button>
-                    </div>
+            <div class="col-3 offcanvas-lg offcanvas-start text-bg-dark overflow-auto" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasResponsiveLabel">Courses</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
                 </div>
-                <form action="student_manage.admin.php" method="post">
+                <div class="offcanvas-body col-12 ">
 
-                    <?php
-                    $courses = new studentview;
-                    $courses->showcoursebuttons();
-                    ?>
-                </form>
+                    <form action="student_manage.admin.php" method="post">
+                        <div class="row">
+                            <h2>Courses</h2>
+                        </div>
+                        <br>
+                        <?php
+                        $courses = new studentview;
+                        $courses->showcoursebuttons();
+                        ?>
+                    </form>
+
+                </div>
             </div>
 
             <div class="col">
                 <br>
                 <div class="row">
-                    <div class="col-1 m-1">
-                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#courses" aria-expanded="false" aria-controls="courses">
-                            Filter By
-                        </button>
-                    </div>
                     <div class="col-3 m-1">
                         <form action="student_manage.admin.php" method='post'>
                             <div class="btn-group" role="group" aria-label="Basic example">
@@ -81,6 +79,9 @@ $page = 2;
                                 <button type="submit" name='status' value='2' class="btn btn-primary <?php echo $restricted; ?>">Restricted</button>
                             </div>
                         </form>
+                    </div>
+                    <div class="col-2 m-1">
+                        <button class="btn btn-primary d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">Course</button>
                     </div>
                 </div>
                 <div class="card m-3">
@@ -106,11 +107,7 @@ $page = 2;
                                     $cid = 1;
                                 }
                                 $students = new studentview;
-                                if (isset($_POST['course'])) {
-                                    $students->showStudentList_bC($cid);
-                                } elseif (isset($_POST['status'])) {
-                                    $students->showStudentList_bSt($status);
-                                }
+                                $students->showStudentList_bC($cid);
                                 ?>
                             </tbody>
                         </table>
