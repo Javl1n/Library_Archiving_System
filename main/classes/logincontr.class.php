@@ -14,7 +14,7 @@ class logincontr extends login
     {
         $this->getUser($this->user_id, $this->password);
         if ($_SESSION['user_type'] == 1) {
-            header('location: ../article_manage.admin.php?error=none');
+            header('location: /LIBRARY_ARCHIVING_SYSTEM2/main/admin/article_manage.admin.php?error=none');
         } elseif ($_SESSION['user_type'] == 2) {
             $student = new studentview;
             $result = $student->showStudent($_SESSION['user_id']);

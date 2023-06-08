@@ -44,7 +44,7 @@ $status = 2;
                 <div class="offcanvas-body col-12 ">
 
                     <form action="student_restricted_manage.admin.php" method="post">
-                        <div class="row">
+                        <div class="row d-sm-none d-md-block">
                             <h2>Courses</h2>
                         </div>
                         <br>

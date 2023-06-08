@@ -30,6 +30,7 @@ function admin_nav($page)
                         <p class='h4'><a class='nav-link <?php echo $requests; ?>' href='#'>Manage Requests</a></p>
                     </li>
                 </ul>
+                <span class="navbar-brand mb-0 h1"><?php echo $_SESSION['first_name'] ?></span>
                 <form class='d-flex' role='search' method='post' action='/LIBRARY_ARCHIVING_SYSTEM2/main/includes/logout.inc.php'>
                     <button class='btn btn-outline-danger p-2' type='submit'>logout</button>
                 </form>

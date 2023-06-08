@@ -36,32 +36,15 @@ $status = 2;
     ?>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-3 offcanvas-lg offcanvas-start text-bg-dark overflow-auto" tabindex="-1" id="courseOptions" aria-labelledby="courseOptionLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="courseOptionLabel"></h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#courseOptions" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body col-12 ">
-
-                    <form action="student_restricted_manage.admin.php" method="post">
-                        <div class="row">
-                            <h2>Courses</h2>
-                        </div>
-                        <br>
-                        <?php
-                        $courses = new studentview;
-                        $courses->showcoursebuttons();
-                        ?>
-                    </form>
-
-                </div>
-            </div>
+            <?php
+            include_once '../includes/course_filter.admin.inc.php';
+            ?>
 
             <div class="col">
                 <br>
                 <div class="row gx-2">
                     <div class="col-10">
-                        <div class="row gx-2">
+                        <div class="row gx-2 ms-3">
                             <div class="col-lg-1 col-sm-3 col-4 m-lg-1 m-sm-1">
                                 <a href="student_active_manage.admin.php" class="btn btn-orange">View Active</a>
                             </div>
@@ -86,7 +69,7 @@ $status = 2;
                                     <th class='col-2' scope="col">Email</th>
                                     <th class='col' scope="col">Contact</th>
                                     <th class='col' scope="col">Status</th>
-                                    <th class='col' scope="col">Options</th>
+                                    <th class='col-2' scope="col">Options</th>
                                 </tr>
                             </thead>
                             <tbody>

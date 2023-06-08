@@ -23,6 +23,7 @@ $page = 1;
     <?php
     echo $bootstrap_css;
     echo $nav_css;
+    echo $student_manage_admin_css;
     echo $jquery_admin;
     echo $bootstrap_admin_js;
     ?>
@@ -34,53 +35,25 @@ $page = 1;
     ?>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-3 offcanvas-lg offcanvas-start text-bg-dark overflow-auto" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasResponsiveLabel">Courses</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body col-12 ">
-
-                    <form action="article_manage.admin.php" method="post">
-                        <div class="row">
-                            <h2>Courses</h2>
-                        </div>
-                        <br>
-                        <?php
-                        $courses = new studentview;
-                        $courses->showcoursebuttons();
-                        ?>
-                    </form>
-
-                </div>
-            </div>
+            <?php
+            include_once '../includes/article_filter.inc.php';
+            ?>
 
             <div class="col">
                 <br>
-                <div class="row">
-                    <div class="col-3 m-1">
-                        <form action="student_manage.admin.php" method='post'>
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <?php
-                                if (isset($_POST['status'])) {
-                                    $status = $_POST['status'];
-                                } else {
-                                    $status = 1;
-                                }
-
-                                if ($status == 1) {
-                                    $active = 'active" aria-current="page';
-                                } elseif ($status == 2) {
-                                    $restricted = 'active" aria-current="page';
-                                }
-                                ?>
-                                <button type="submit" name='status' value='1' class="btn btn-primary <?php echo $active; ?>">Active</button>
-                                <button type="submit" name='status' value='2' class="btn btn-primary <?php echo $restricted; ?>">Restricted</button>
+                <div class="row gx-2">
+                    <div class="col-10">
+                        <div class="row gx-2">
+                            <div class="col-lg-1 col-sm-3 col-4 m-lg-1 m-sm-1">
+                                <a href="student_active_manage.admin.php" class="btn btn-orange">View Active</a>
                             </div>
-                        </form>
-                    </div>
-                    <div class="col-2 m-1">
-                        <button class="btn btn-primary d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">Course</button>
+                            <div class="col-lg-1 col-sm-4 col-5 m-lg-1 m-sm-1">
+                                <a href="student_verification_manage.admin.php" class="btn btn-orange">Verification Requests</a>
+                            </div>
+                            <div class="col-2 m-sm-1">
+                                <button class="btn btn-orange d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#filters" aria-controls="filters">filters</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card m-3">
@@ -103,7 +76,7 @@ $page = 1;
                                 $students = new studentview;
                                 if (isset($_POST['course'])) {
                                     $cid = $_POST['course'];
-                                    $students->showStudentList_bC($cid);
+                                    $students->showStudentList_bC($cid, $status);
                                 } else {
                                     $students->showStudentList_bSt($status);
                                 }
