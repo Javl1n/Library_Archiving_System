@@ -13,7 +13,7 @@ function admin_nav($page)
     <nav class='navbar sticky-top navbar-expand-lg bg-white '>
         <div class='container-fluid'>
             <a class='navbar-brand' href='article_manage.admin.php'>
-                <img src='./assets/SEAIT.jpg' height='40' alt='seait' class='d-inline-block align-text-center'>
+                <img src='../assets/SEAIT.jpg' height='40' alt='seait' class='d-inline-block align-text-center'>
             </a>
             <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
                 <span class='navbar-toggler-icon'></span>
@@ -24,7 +24,7 @@ function admin_nav($page)
                         <p class='h4'><a class='nav-link <?php echo $article; ?>' href='article_manage.admin.php'>Manage Articles</a></p>
                     </li>
                     <li class='nav-item'>
-                        <p class='h4'><a class='nav-link <?php echo $student; ?>' href='student_manage.admin.php'>Manage Student</a></p>
+                        <p class='h4'><a class='nav-link <?php echo $student; ?>' href='student_active_manage.admin.php'>Manage Student</a></p>
                     </li>
                     <li class='nav-item'>
                         <p class='h4'><a class='nav-link <?php echo $requests; ?>' href='#'>Manage Requests</a></p>

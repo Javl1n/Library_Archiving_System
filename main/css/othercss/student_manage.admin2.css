@@ -8,3 +8,11 @@
 hr {
     color: #fff;
 }
+
+
+.button-orange{
+    border: none;
+    background: #fa8c1e;
+    color: #fff;
+    font-size: 1rem;
+}

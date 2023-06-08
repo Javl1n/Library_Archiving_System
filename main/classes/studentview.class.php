@@ -50,9 +50,9 @@ class studentview extends student
         $results = $this->getStudent($student_id);
         return $results;
     }
-    public function showStudentList_bC($cid)
+    public function showStudentList_bC($cid, $status)
     {
-        $row = $this->getStudents_bC($cid);
+        $row = $this->getStudents_bC($cid, $status);
 
         foreach ($row as $row) {
             $full_name = $row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name'];
@@ -77,7 +77,33 @@ class studentview extends student
                 <td><?php echo $row['email'] ?></td>
                 <td><?php echo $row['contact_number'] ?></td>
                 <td><?php echo $row['status_title'] ?></td>
-                <td></td>
+                <td>
+                    <form action="/LIBRARY_ARCHIVING_SYSTEM2/main/includes/status_update.inc.php" method='post'>
+                        <input type="hidden" name="student_id" value="<?php echo $row['user_id'] ?>">
+                        <button class="btn btn-<?php
+                                                if ($status == 1) {
+                                                    echo 'danger';
+                                                } elseif ($status == 2) {
+                                                    echo 'success';
+                                                }
+                                                ?>" name="status_update" value="
+                        <?php
+                        if ($status == 1) {
+                            echo 2;
+                        } else if ($status == 2) {
+                            echo 1;
+                        }
+                        ?>">
+                            <?php
+                            if ($status == 1) {
+                                echo 'restrict';
+                            } else if ($status == 2) {
+                                echo 'unrestrict';
+                            }
+                            ?>
+                        </button>
+                    </form>
+                </td>
 
             </tr>
         <?php
@@ -112,7 +138,33 @@ class studentview extends student
                 <td><?php echo $row['email'] ?></td>
                 <td><?php echo $row['contact_number'] ?></td>
                 <td><?php echo $row['status_title'] ?></td>
-                <td></td>
+                <td>
+                    <form action="/LIBRARY_ARCHIVING_SYSTEM2/main/includes/status_update.inc.php" method='post'>
+                        <input type="hidden" name="student_id" value="<?php echo $row['user_id'] ?>">
+                        <button class="btn btn-<?php
+                                                if ($status == 1) {
+                                                    echo 'danger';
+                                                } elseif ($status == 2) {
+                                                    echo 'success';
+                                                }
+                                                ?>" name="status_update" value="
+                        <?php
+                        if ($status == 1) {
+                            echo 2;
+                        } else if ($status == 2) {
+                            echo 1;
+                        }
+                        ?>">
+                            <?php
+                            if ($status == 1) {
+                                echo 'restrict';
+                            } else if ($status == 2) {
+                                echo 'unrestrict';
+                            }
+                            ?>
+                        </button>
+                    </form>
+                </td>
 
             </tr>
 <?php

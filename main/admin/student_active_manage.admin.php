@@ -1,16 +1,17 @@
 <?php
 session_start();
-include './includes/autoloader.inc.php';
-include './includes/css.inc.php';
-include './includes/js.inc.php';
-include './includes/admin.navbar.php';
-spl_autoload_register('myAutoLoaderMain');
+include '../includes/autoloader.inc.php';
+include '../includes/css.inc.php';
+include '../includes/js.inc.php';
+include '../includes/admin.navbar.php';
+spl_autoload_register('myAutoLoaderAdmin');
 
 if (!isset($_SESSION['user_id'])) {
     header('location:login.php');
 }
 
 $page = 2;
+$status = 1;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,8 +25,8 @@ $page = 2;
     echo $bootstrap_css;
     echo $nav_css;
     echo $student_manage_admin_css;
-    echo $jquery;
-    echo $bootstrap_js;
+    echo $jquery_admin;
+    echo $bootstrap_admin_js;
     ?>
 </head>
 
@@ -35,14 +36,14 @@ $page = 2;
     ?>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-3 offcanvas-lg offcanvas-start text-bg-dark overflow-auto" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
+            <div class="col-3 offcanvas-lg offcanvas-start text-bg-dark overflow-auto" tabindex="-1" id="courseOptions" aria-labelledby="courseOptionsLabel">
                 <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasResponsiveLabel">Courses</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
+                    <h5 class="offcanvas-title" id="courseOptionsLabel"></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#courseOptions" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body col-12 ">
 
-                    <form action="student_manage.admin.php" method="post">
+                    <form action="student_active_manage.admin.php" method="post">
                         <div class="row">
                             <h2>Courses</h2>
                         </div>
@@ -58,30 +59,19 @@ $page = 2;
 
             <div class="col">
                 <br>
-                <div class="row">
-                    <div class="col-3 m-1">
-                        <form action="student_manage.admin.php" method='post'>
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <?php
-                                if (isset($_POST['status'])) {
-                                    $status = $_POST['status'];
-                                } else {
-                                    $status = null;
-                                }
-
-                                if ($status == 1) {
-                                    $active = 'active" aria-current="page';
-                                } elseif ($status == 2) {
-                                    $restricted = 'active" aria-current="page';
-                                }
-                                ?>
-                                <button type="submit" name='status' value='1' class="btn btn-primary <?php echo $active; ?>">Active</button>
-                                <button type="submit" name='status' value='2' class="btn btn-primary <?php echo $restricted; ?>">Restricted</button>
+                <div class="row gx-2">
+                    <div class="col-10">
+                        <div class="row gx-2">
+                            <div class="col-lg-1 col-sm-3 col-4 m-lg-1 m-sm-1">
+                                <a href="student_restricted_manage.admin.php" class="btn btn-orange">View Restricted</a>
                             </div>
-                        </form>
-                    </div>
-                    <div class="col-2 m-1">
-                        <button class="btn btn-primary d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">Course</button>
+                            <div class="col-lg-1 col-sm-4 col-5 m-lg-1 m-sm-1">
+                                <a href="student_verification_manage.admin.php" class="btn btn-orange">Verification Requests</a>
+                            </div>
+                            <div class="col-2 m-sm-1">
+                                <button class="btn btn-orange d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#courseOptions" aria-controls="courseOptions">Course</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card m-3">
@@ -101,13 +91,13 @@ $page = 2;
                             </thead>
                             <tbody>
                                 <?php
+                                $students = new studentview;
                                 if (isset($_POST['course'])) {
                                     $cid = $_POST['course'];
+                                    $students->showStudentList_bC($cid, $status);
                                 } else {
-                                    $cid = 1;
+                                    $students->showStudentList_bSt($status);
                                 }
-                                $students = new studentview;
-                                $students->showStudentList_bC($cid);
                                 ?>
                             </tbody>
                         </table>

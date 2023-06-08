@@ -1,0 +1,95 @@
+.myDiv {
+    height: 350vh; 
+    margin-top: 70px;
+    padding: 30px;
+    background-size: cover; 
+    font-family: sans-serif;
+    background-color: #b6e1e7;    
+    text-align: center;
+    }
+
+    .myDiv0 {
+    background-color: #f9b872;
+    position: fixed;
+    left:0;
+    right: 0;
+    top: 0;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 10px 0 black;
+}
+
+header * {  
+display: inline;  
+}  
+
+header li {  
+margin: 20px;  
+}  
+
+header li a {  
+color: #000;  
+text-decoration: none; 
+text-transform: uppercase;
+}  
+
+ul {
+list-style-type: none;
+
+}
+.nav { 
+float: right; 
+width: 500px;
+}
+
+.search img{
+    position: absolute;
+    top: 4;
+    right: 0;
+}
+
+  .container {
+    position: absolute;
+    margin-top: 48%;
+    margin-left: 11%;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 1100px;
+    height: 480px;
+    padding: 40px;
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+  }
+  .buttons {
+      display: flex;
+      justify-content: flex-end;
+      align-self: flex-end;
+      margin-top: 200px;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+  }
+
+  .button {
+    margin-left: 10px;
+    margin-top: 4%;
+    margin-right: 2%;
+  }
+  .abstract {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+  }
+  .label {
+align-self: flex-start;
+font-size: 25px;
+font-weight: bold;
+text-align: left;
+  }
+  body p{
+    font-family: sans-serif;
+
+  }
+
