@@ -41,18 +41,15 @@ $page = 1;
 
             <div class="col">
                 <br>
-                <div class="row gx-2">
-                    <div class="col-10">
-                        <div class="row gx-2">
-                            <div class="col-lg-1 col-sm-3 col-4 m-lg-1 m-sm-1">
-                                <a href="student_active_manage.admin.php" class="btn btn-orange">View Active</a>
-                            </div>
-                            <div class="col-lg-1 col-sm-4 col-5 m-lg-1 m-sm-1">
-                                <a href="student_verification_manage.admin.php" class="btn btn-orange">Verification Requests</a>
-                            </div>
-                            <div class="col-2 m-sm-1">
-                                <button class="btn btn-orange d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#filters" aria-controls="filters">filters</button>
-                            </div>
+                <div class="row">
+                    <div class="col-12 ms-3 mx-1">
+                        <div class="gap-3 d-block">
+
+                            <!-- <a class="btn btn-orange" href="article_manage.admin.php">View all</a> -->
+
+
+                            <button class="btn btn-orange d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#filters" aria-controls="filters">filters</button>
+
                         </div>
                     </div>
                 </div>
@@ -61,28 +58,36 @@ $page = 1;
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th class='col-1' scope="col">Student_ID</th>
-                                    <th class='col-3' scope="col">Full Name</th>
+                                    <th class='col-1' scope="col">ID</th>
+                                    <th class='col-4' scope="col">Title</th>
+                                    <th class='col' scope="col">Published</th>
                                     <th class='col-4' scope="col">Course</th>
-                                    <th class='col-1' scope="col">Year Level</th>
-                                    <th class='col-2' scope="col">Email</th>
-                                    <th class='col' scope="col">Contact</th>
-                                    <th class='col' scope="col">Status</th>
                                     <th class='col' scope="col">Options</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                $students = new studentview;
+                                $articles = new articleview;
                                 if (isset($_POST['course'])) {
                                     $cid = $_POST['course'];
-                                    $students->showStudentList_bC($cid, $status);
+                                    $tag = 0;
+                                    $year = 0;
+                                } elseif (isset($_POST['tag'])) {
+                                    $cid = 0;
+                                    $tag = $_POST['tag'];
+                                    $year = 0;
+                                } elseif (isset($_POST['year_search'])) {
+                                    $cid = 0;
+                                    $tag = 0;
+                                    $year = $_POST['year'];
                                 } else {
-                                    $students->showStudentList_bSt($status);
+                                    $cid = 0;
+                                    $tag = 0;
+                                    $year = 0;
                                 }
+                                $articles->showArticles($cid, $tag, $year);
                                 ?>
                             </tbody>
-                        </table>
                     </div>
                 </div>
             </div>

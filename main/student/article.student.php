@@ -41,11 +41,10 @@ $page = 1
             <div class="col">
                 <br>
                 <div class="row gx-2">
-                    <div class="col-10">
-                        <div class="row gx-2">
-                            <div class="col-2 m-sm-1">
-                                <button class="btn btn-orange d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#filters" aria-controls="filters">filters</button>
-                            </div>
+                    <div class="col-10 ps-4">
+                        <div class="gap-3 d-block">
+                            <!-- <a class="btn btn-orange" href="article.student.php">View all</a> -->
+                            <button class="btn btn-orange d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#filters" aria-controls="filters">filters</button>
                         </div>
                     </div>
                 </div>
@@ -54,17 +53,35 @@ $page = 1
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th class='col-1' scope="col">Student_ID</th>
-                                    <th class='col-3' scope="col">Full Name</th>
+                                    <th class='col-1' scope="col">ID</th>
+                                    <th class='col-4' scope="col">Title</th>
+                                    <th class='col' scope="col">Published</th>
                                     <th class='col-4' scope="col">Course</th>
-                                    <th class='col-1' scope="col">Year Level</th>
-                                    <th class='col-2' scope="col">Email</th>
-                                    <th class='col' scope="col">Contact</th>
-                                    <th class='col' scope="col">Status</th>
                                     <th class='col' scope="col">Options</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php
+                                $articles = new articleview;
+                                if (isset($_POST['course'])) {
+                                    $cid = $_POST['course'];
+                                    $tag = 0;
+                                    $year = 0;
+                                } elseif (isset($_POST['tag'])) {
+                                    $cid = 0;
+                                    $tag = $_POST['tag'];
+                                    $year = 0;
+                                } elseif (isset($_POST['year_search'])) {
+                                    $cid = 0;
+                                    $tag = 0;
+                                    $year = $_POST['year'];
+                                } else {
+                                    $cid = 0;
+                                    $tag = 0;
+                                    $year = 0;
+                                }
+                                $articles->showArticles($cid, $tag, $year);
+                                ?>
                             </tbody>
                         </table>
                     </div>

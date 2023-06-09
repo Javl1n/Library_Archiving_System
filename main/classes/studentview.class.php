@@ -110,67 +110,6 @@ class studentview extends student
                 </td>
 
             </tr>
-        <?php
-
-        }
-    }
-
-    public function showStudentList_bSt($status)
-    {
-        $row = $this->getStudents_bSt($status);
-
-        foreach ($row as $row) {
-            $full_name = $row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name'];
-            $id1 = $row['user_id'] / 100000;
-            $id2 = $row['user_id'] % 100000;
-            if ($row['year_level'] == 1) {
-                $year = '1st year';
-            } else if ($row['year_level'] == 2) {
-                $year = '2nd year';
-            } else if ($row['year_level'] == 3) {
-                $year = '3rd year';
-            } else if ($row['year_level'] == 4) {
-                $year = '4th year';
-            }
-        ?>
-            <tr>
-
-                <td><?php echo intval($id1) . '-' . sprintf('%05d', $id2); ?></th>
-                <td><?php echo $full_name ?></td>
-                <td><?php echo $row['course_title'] . " (" . $row['abbreviation'] . ")" ?></td>
-                <td><?php echo $year ?></td>
-                <td><?php echo $row['email'] ?></td>
-                <td><?php echo $row['contact_number'] ?></td>
-                <td><?php echo $row['status_title'] ?></td>
-                <td>
-                    <form action="/LIBRARY_ARCHIVING_SYSTEM2/main/includes/status_update.inc.php" method='post'>
-                        <input type="hidden" name="student_id" value="<?php echo $row['user_id'] ?>">
-                        <button class="btn btn-<?php
-                                                if ($status == 1) {
-                                                    echo 'danger';
-                                                } elseif ($status == 2) {
-                                                    echo 'success';
-                                                }
-                                                ?>" name="status_update" value="
-                        <?php
-                        if ($status == 1) {
-                            echo 2;
-                        } else if ($status == 2) {
-                            echo 1;
-                        }
-                        ?>">
-                            <?php
-                            if ($status == 1) {
-                                echo 'restrict';
-                            } else if ($status == 2) {
-                                echo 'unrestrict';
-                            }
-                            ?>
-                        </button>
-                    </form>
-                </td>
-
-            </tr>
 <?php
 
         }

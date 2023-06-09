@@ -37,23 +37,17 @@ $status = 1;
     <div class="container-fluid">
         <div class="row">
             <?php
-            include_once '../includes/course_filter.admin.inc.php';
+            include_once '../includes/student_filter.admin.inc.php';
             ?>
 
             <div class="col">
                 <br>
                 <div class="row gx-2">
-                    <div class="col-10 ms-3">
-                        <div class="row gx-2">
-                            <div class="col-lg-1 col-sm-3 col-4 m-lg-1 m-sm-2">
-                                <a href="student_restricted_manage.admin.php" class="btn btn-orange">View Restricted</a>
-                            </div>
-                            <div class="col-lg-1 col-sm-4 col-5 m-lg-1 m-sm-2">
-                                <a href="student_verification_manage.admin.php" class="btn btn-orange">Verification Requests</a>
-                            </div>
-                            <div class="col-2 m-sm-2">
-                                <button class="btn btn-orange d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#courseOptions" aria-controls="courseOptions">Course</button>
-                            </div>
+                    <div class="col-10 ms-3 mx-1">
+                        <div class="gap-3 d-block">
+                            <button class="btn btn-orange d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#courseOptions" aria-controls="courseOptions">Course</button>
+                            <a href="student_restricted_manage.admin.php" class="btn btn-orange">View Restricted</a>
+                            <a href="student_verification_manage.admin.php" class="btn btn-orange">Verification Requests</a>
                         </div>
                     </div>
                 </div>

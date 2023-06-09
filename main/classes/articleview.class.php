@@ -44,6 +44,28 @@ class articleview extends article
             }
             ?>
         </div>
+        <?php
+    }
+
+    public function showArticles($cid, $tid, $year)
+    {
+        if ($cid != 0) {
+            $articles = $this->getArticlesWithCourse($cid);
+        } elseif ($tid != 0) {
+            $articles = $this->getArticlesWithTags($tid);
+        } elseif ($year != 0) {
+            $articles = $this->getArticlesbyYear($year);
+        } else {
+            $articles = $this->getArticles();
+        }
+
+        foreach ($articles as $articles) { ?>
+            <td><?php echo $articles['article_id'] ?></th>
+            <td><?php echo $articles['article_title'] ?></td>
+            <td><?php echo $articles['year_published'] ?></td>
+            <td><?php echo $articles['course_title'] . ' (' . $articles['abbreviation'] . ')'; ?></td>
+            <td></td>
 <?php
+        }
     }
 }
