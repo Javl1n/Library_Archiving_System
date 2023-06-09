@@ -7,7 +7,7 @@ class student extends dbconnection
         $sql = "SELECT * FROM student s 
                 INNER JOIN user u ON u.user_id = s.user_id
                 INNER JOIN course c ON c.course_id = s.course_id
-                INNER JOIN user_status st ON st.status_id = s.status_id
+                INNER JOIN student_status st ON st.status_id = s.status_id
                 WHERE s.user_id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$student_id]);
@@ -62,7 +62,7 @@ class student extends dbconnection
         $sql = "SELECT * FROM student s 
                 INNER JOIN user u ON u.user_id = s.user_id
                 INNER JOIN course c ON c.course_id = s.course_id
-                INNER JOIN user_status st ON st.status_id = s.status_id
+                INNER JOIN student_status st ON st.status_id = s.status_id
                 WHERE s.course_id = ? AND s.status_id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$cid, $status]);
@@ -75,7 +75,7 @@ class student extends dbconnection
         $sql = "SELECT * FROM student s 
                 INNER JOIN user u ON u.user_id = s.user_id
                 INNER JOIN course c ON c.course_id = s.course_id
-                INNER JOIN user_status st ON st.status_id = s.status_id
+                INNER JOIN student_status st ON st.status_id = s.status_id
                 WHERE s.status_id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$status]);

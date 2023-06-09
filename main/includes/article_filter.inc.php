@@ -9,17 +9,29 @@
             <div class="row d-sm-none d-md-block">
                 <h2>Filter by:</h2>
             </div>
+            <?php
+            $filter = new articleview;
+            ?>
             <a class="link-underline link-underline-opacity-0 text-white fs-3" data-bs-toggle="collapse" href="#courseOption" role="button" aria-expanded="false" aria-controls="courseOption">
                 Courses
 
             </a>
 
             <div class="collapse" id="courseOption">
-
                 <br>
                 <?php
-                $courses = new studentview;
-                $courses->showcoursebuttons();
+                $filter->showCourseButtons();
+                ?>
+            </div>
+            <hr>
+            <a class="link-underline link-underline-opacity-0 text-white fs-3" data-bs-toggle="collapse" href="#tags" role="button" aria-expanded="false" aria-controls="tags">
+                Tags
+            </a>
+
+            <div class="collapse" id="tags">
+                <br>
+                <?php
+                $filter->showTagButtons();
                 ?>
             </div>
             <hr>

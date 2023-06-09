@@ -3,7 +3,7 @@ session_start();
 include '../includes/autoloader.inc.php';
 include '../includes/css.inc.php';
 include '../includes/js.inc.php';
-include '../includes/admin.navbar.php';
+
 spl_autoload_register('myAutoLoaderAdmin');
 
 if (!isset($_SESSION['user_id'])) {
@@ -24,7 +24,7 @@ $status = 1;
     <?php
     echo $bootstrap_css;
     echo $nav_css;
-    echo $student_manage_admin_css;
+    echo $sidebar_css;
     echo $jquery_admin;
     echo $bootstrap_admin_js;
     ?>
@@ -32,7 +32,7 @@ $status = 1;
 
 <body>
     <?php
-    admin_nav($page);
+    include '../includes/admin.navbar.php';
     ?>
     <div class="container-fluid">
         <div class="row">
@@ -77,10 +77,11 @@ $status = 1;
                                 $students = new studentview;
                                 if (isset($_POST['course'])) {
                                     $cid = $_POST['course'];
-                                    $students->showStudentList_bC($cid, $status);
                                 } else {
-                                    $students->showStudentList_bSt($status);
+                                    $cid = 0;
                                 }
+                                $students->showStudentList($cid, $status);
+
                                 ?>
                             </tbody>
                         </table>

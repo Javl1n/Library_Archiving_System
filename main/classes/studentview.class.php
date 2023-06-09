@@ -50,10 +50,14 @@ class studentview extends student
         $results = $this->getStudent($student_id);
         return $results;
     }
-    public function showStudentList_bC($cid, $status)
+    public function showStudentList($cid, $status)
     {
         $row = $this->getStudents_bC($cid, $status);
-
+        if ($cid != 0) {
+            $row = $this->getStudents_bC($cid, $status);
+        } else {
+            $row = $this->getStudents_bSt($status);
+        }
         foreach ($row as $row) {
             $full_name = $row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name'];
             $id1 = $row['user_id'] / 100000;

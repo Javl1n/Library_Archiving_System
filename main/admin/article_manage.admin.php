@@ -3,7 +3,7 @@ session_start();
 include '../includes/autoloader.inc.php';
 include '../includes/css.inc.php';
 include '../includes/js.inc.php';
-include '../includes/admin.navbar.php';
+
 spl_autoload_register('myAutoLoaderAdmin');
 
 if (!isset($_SESSION['user_id'])) {
@@ -23,7 +23,7 @@ $page = 1;
     <?php
     echo $bootstrap_css;
     echo $nav_css;
-    echo $student_manage_admin_css;
+    echo $sidebar_css;
     echo $jquery_admin;
     echo $bootstrap_admin_js;
     ?>
@@ -31,7 +31,7 @@ $page = 1;
 
 <body>
     <?php
-    admin_nav($page);
+    include_once '../includes/admin.navbar.php';
     ?>
     <div class="container-fluid">
         <div class="row">

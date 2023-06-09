@@ -7,4 +7,4 @@ $loginregister_css = "<link rel='stylesheet' type='text/css' href='/LIBRARY_ARCH
 //for navbar
 $nav_css = "<link rel='stylesheet' type='text/css' href='/LIBRARY_ARCHIVING_SYSTEM2/main/css/othercss/navbar.css'>";
 
-$student_manage_admin_css = "<link rel='stylesheet' type='text/css' href='/LIBRARY_ARCHIVING_SYSTEM2/main/css/othercss/student_manage.admin2.css'>";
+$sidebar_css = "<link rel='stylesheet' type='text/css' href='/LIBRARY_ARCHIVING_SYSTEM2/main/css/othercss/sidebar.css'>";
