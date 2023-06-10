@@ -1,5 +1,97 @@
-log in system - few ad ons nalang
-upload archive - wala pa
-verify with picture
-itarong ang css link
-verify profile
+STUDENT
+    Articles - 50%
+        View Article Information - done - 50%
+        Search Article 
+        Filter Article - done - 50%
+
+    Profile - 
+        View Student's Information
+        Edit Student Information
+        Verify Account
+
+--
+
+RESEARCHER
+    Article - 50%
+        View Article Information - done - 50%
+        Search Article
+        Filter Search - done - 50%
+
+    Profile - 
+        View Information
+        Edit Information
+        View Verification Status
+
+    My Upload -
+        Upload Article
+        View Uploaded Articles
+        View Upload Request Status
+        Delete Article
+        View Deleted Articles
+        Send Retrieval Request
+
+--
+
+ADMIN
+    Manage Articles - 50%
+        View Articles - done
+        View Articel Information
+
+    Manage Upload Requests -
+        View Article Upload Requests
+        Approve Upload
+        Decline Upload
+
+    Mange Student - 75%
+        View Student List - done
+        View Student's Profile - done
+        Restrict Account - done
+        Unrestrict Account - done
+        View Verification Request
+        Approve Verification Request
+        Decline Verification Request
+
+    Manage Archive - 
+        View Deleted Articles
+        View Retrieval Request
+        Restore Article
+
+
+
+done:
+    View Articles - done
+    View Student List - done
+    View Student's Profile - done
+    Restrict Account - done
+    Unrestrict Account - done
+
+50%:
+    View Article Information - done - 50%
+    Filter Article - done - 50%
+    View Article Information - done - 50%
+    Filter Search - done - 50%
+
+not started:
+    Profile - 
+        View Student's Information
+        Edit Student Information
+        Verify Account
+
+    My Upload -
+            Upload Article
+            View Uploaded Articles
+            View Upload Request Status
+            Delete Article
+            View Deleted Articles
+            Send Retrieval Request
+    
+    Manage Upload Requests -
+        View Article Upload Requests
+        Approve Upload
+        Decline Upload
+
+    Manage Archive - 
+        View Deleted Articles
+        View Retrieval Request
+        Restore Article
+

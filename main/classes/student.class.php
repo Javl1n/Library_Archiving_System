@@ -8,6 +8,7 @@ class student extends dbconnection
                 INNER JOIN user u ON u.user_id = s.user_id
                 INNER JOIN course c ON c.course_id = s.course_id
                 INNER JOIN student_status st ON st.status_id = s.status_id
+                INNER JOIN verification_status vs ON vs.verification_status_id = s.verification_status_id
                 WHERE s.user_id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$student_id]);

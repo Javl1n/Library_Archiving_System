@@ -25,7 +25,8 @@ class login extends dbconnection
             header("location: ../login.php?error=incorrectpassword");
             exit();
         } elseif ($checkpwd == true) {
-            $sql = 'SELECT * FROM user WHERE user_id = ?';
+            $sql = 'SELECT * FROM user
+                    WHERE user_id = ?';
             $stmt = $this->connect()->prepare($sql);
             if (!$stmt->execute(array($user_id))) {
                 $stmt = null;

@@ -23,10 +23,12 @@ if ($page == 1) {
                     <p class='h4'><a class='nav-link <?php echo $article; ?>' href='article.student.php'>Articles</a></p>
                 </li>
                 <li class='nav-item'>
-                    <p class='h4'><a class='nav-link <?php echo $student; ?>' href='#'>Profile</a></p>
+                    <p class='h4'><a class='nav-link <?php echo $student; ?>' href='profile.student.php'>Profile</a></p>
                 </li>
                 <?php
-                if ($_SESSION['user_type'] == 3) {
+                $user = new studentview;
+                $row = $user->showStudent($_SESSION['user_id']);
+                if ($row['verification_status_id'] == 1) {
                 ?>
                     <li class='nav-item'>
                         <p class='h4'><a class='nav-link <?php echo $requests; ?>' href='#'>My Uploads</a></p>
