@@ -57,9 +57,11 @@ class studentview extends student
         if (isset($_POST['edit'])) {
             $readonly = ' ';
             $plain_text = ' ';
+            $action = '../includes/update_profile.inc.php';
         } else {
             $readonly = 'readonly';
             $plain_text = '-plaintext';
+            $action = 'profile.student.php';
         }
         ?>
         <div class="row">
@@ -70,7 +72,7 @@ class studentview extends student
                 <h3 class="text-center py-lg-4 pt-sm-4"><?php echo $row['first_name'] ?></h3>
             </div>
             <div class="col pt-lg-5 pt-sm-2 ps-lg-5">
-                <form action="profile.student.php" method="post">
+                <form action="<?php echo $action ?>" method="post">
                     <!-- Student ID -->
                     <div class="row py-1">
                         <div class="col-lg-3 col-sm-4 py-sm-0 ps-sm-2 pe-0">
@@ -81,61 +83,144 @@ class studentview extends student
                             $id1 = $row['user_id'] / 100000;
                             $id2 = $row['user_id'] % 100000;
                             $idf = intval($id1) . '-' . sprintf('%05d', $id2);
+
                             ?>
                             <input type="text" id="student_id" class="form-control-plaintext form-control-lg" value="<?php echo $idf ?>" readonly>
+                            <input type="hidden" name="student_id" value="<?php echo $row['user_id'] ?>">
                         </div>
                     </div>
                     <!-- Full Name -->
-                    <div class="row py-1">
-                        <div class="col-lg-3 col-sm-4 py-sm-0 ps-sm-2">
-                            <label for="full_name" class="col-form-label form-control-lg">Full Name:</label>
+                    <?php if (isset($_POST['edit'])) { ?>
+                        <!-- First Name -->
+                        <div class="row py-1">
+                            <div class="col-lg-3 col-sm-4 py-sm-0 ps-sm-2">
+                                <label for="first_name" class="col-form-label form-control-lg">First Name:</label>
+                            </div>
+                            <div class="col-sm-7 col-lg-8">
+                                <input type="text" id="first_name" name="first_name" class="form-control<?php echo $plain_text; ?> form-control-lg" value="<?php echo $row['first_name'] ?>" <?php echo $readonly; ?>>
+                            </div>
                         </div>
-                        <div class="col-sm-7 col-lg-8">
-                            <?php
-                            $middle_name = $row['middle_name'];
-                            $MI = $middle_name[0];
-                            $full_name = $row['first_name'] . ' ' . $MI . '. ' . $row['last_name'];
-                            ?>
-                            <input type="text" id="full_name" class="form-control<?php echo $plain_text; ?> form-control-lg" value="<?php echo $full_name ?>" <?php echo $readonly; ?>>
+                        <!-- Middle Name -->
+                        <div class="row py-1">
+                            <div class="col-lg-3 col-sm-4 py-sm-0 ps-sm-2">
+                                <label for="middle_name" class="col-form-label form-control-lg">Middle Name:</label>
+                            </div>
+                            <div class="col-sm-7 col-lg-8">
+                                <input type="text" id="middle_name" name="middle_name" class="form-control form-control-lg" value="<?php echo $row['middle_name'] ?>">
+                            </div>
                         </div>
-                    </div>
+                        <!-- Last Name -->
+                        <div class="row py-1">
+                            <div class="col-lg-3 col-sm-4 py-sm-0 ps-sm-2">
+                                <label for="last_name" class="col-form-label form-control-lg">Last Name:</label>
+                            </div>
+                            <div class="col-sm-7 col-lg-8">
+                                <input type="text" id="last_name" name="last_name" class="form-control form-control-lg" value="<?php echo $row['last_name'] ?>">
+                            </div>
+                        </div>
+                    <?php } else {  ?>
+                        <!-- Full Name -->
+                        <div class="row py-1">
+                            <div class="col-lg-3 col-sm-4 py-sm-0 ps-sm-2">
+                                <label for="full_name" class="col-form-label form-control-lg">Full Name:</label>
+                            </div>
+                            <div class="col-sm-7 col-lg-8">
+                                <?php
+                                $middle_name = $row['middle_name'];
+                                $MI = $middle_name[0];
+                                $full_name = $row['first_name'] . ' ' . $MI . '. ' . $row['last_name'];
+                                ?>
+                                <input type="text" id="full_name" class="form-control<?php echo $plain_text; ?> form-control-lg" value="<?php echo $full_name ?>" <?php echo $readonly; ?>>
+                            </div>
+                        </div>
+                    <?php }  ?>
                     <!-- Course -->
                     <div class="row py-1">
                         <div class="col-lg-3 col-sm-4 py-sm-0 ps-sm-2">
-                            <label for="student_id" class="col-form-label form-control-lg">Course:</label>
+                            <label for="course" class="col-form-label form-control-lg">Course:</label>
                         </div>
-                        <div class="col-sm-7 col-lg-8">
-                            <?php
-                            $course = $row['abbreviation'] . ' - ' . $row['course_title'];
-                            ?>
-                            <input type="text" id="student_id" class="form-control-plaintext form-control-lg" value="<?php echo $course ?>" <?php echo $readonly; ?>>
-                        </div>
+                        <?php if (isset($_POST['edit'])) { ?>
+                            <div class="col-sm-7 col-lg-8">
+                                <select name="course" id="course" class="form-select form-select-lg">
+                                    <?php
+                                    $courses = $this->getCourseList();
+                                    foreach ($courses as $course) {
+                                        $course_full = $course['abbreviation'] . ' - ' . $course['course_title'];
+                                        if ($course['course_id'] == $row['course_id']) {
+                                            $current_course = 'selected';
+                                        } else {
+                                            $current_course = '';
+                                        }
+                                    ?>
+                                        <option <?php echo $current_course ?> value="<?php echo $course['course_id'] ?>"><?php echo $course_full ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        <?php } else {  ?>
+                            <div class="col-sm-7 col-lg-8">
+                                <?php
+                                $course = $row['abbreviation'] . ' - ' . $row['course_title'];
+                                ?>
+                                <input type="text" id="course" class="form-control-plaintext form-control-lg" value="<?php echo $course ?>" <?php echo $readonly; ?>>
+                            </div>
+                        <?php }  ?>
                     </div>
                     <!-- Year Level -->
                     <div class="row py-1">
                         <div class="col-lg-3 col-sm-4 py-sm-0 ps-sm-2">
                             <label for="year_level" class="col-form-label form-control-lg">Year Level:</label>
                         </div>
-                        <div class="col-sm-7 col-lg-8">
-                            <?php
-                            $year = $row['year_level'];
-                            switch ($year % 10) {
-                                case 1:
-                                    $year_level = $year . 'st';
-                                    break;
-                                case 2:
-                                    $year_level = $year . 'nd';
-                                    break;
-                                case 3:
-                                    $year_level = $year . 'rd';
-                                    break;
-                                default:
-                                    $year_level = $year . 'th';
-                                    break;
-                            }
-                            ?>
-                            <input type="text" id="year_level" class="form-control<?php echo $plain_text; ?> form-control-lg" value="<?php echo $year_level ?> year" <?php echo $readonly; ?>>
-                        </div>
+                        <?php if (isset($_POST['edit'])) { ?>
+                            <div class="col-sm-7 col-lg-8">
+                                <select name="year_level" id="year_level" class="form-select form-select-lg">
+                                    <?php
+                                    for ($year_choice = 1; $year_choice <= 4; $year_choice++) {
+                                        if ($year_choice == $row['year_level']) {
+                                            $current_yl = 'selected';
+                                        } else {
+                                            $current_yl = '';
+                                        }
+                                        switch ($year_choice % 10) {
+                                            case 1:
+                                                $year_level_choice = $year_choice . 'st';
+                                                break;
+                                            case 2:
+                                                $year_level_choice = $year_choice . 'nd';
+                                                break;
+                                            case 3:
+                                                $year_level_choice = $year_choice . 'rd';
+                                                break;
+                                            default:
+                                                $year_level_choice = $year_choice . 'th';
+                                                break;
+                                        }
+                                    ?>
+                                        <option <?php echo $current_yl ?> value="<?php echo $year_choice ?>"><?php echo $year_level_choice . ' year' ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        <?php } else {  ?>
+                            <div class="col-sm-7 col-lg-8">
+                                <?php
+                                $year = $row['year_level'];
+                                switch ($year % 10) {
+                                    case 1:
+                                        $year_level = $year . 'st';
+                                        break;
+                                    case 2:
+                                        $year_level = $year . 'nd';
+                                        break;
+                                    case 3:
+                                        $year_level = $year . 'rd';
+                                        break;
+                                    default:
+                                        $year_level = $year . 'th';
+                                        break;
+                                }
+                                ?>
+                                <input type="text" id="year_level" class="form-control<?php echo $plain_text; ?> form-control-lg" value="<?php echo $year_level ?> year" <?php echo $readonly; ?>>
+                            </div>
+                        <?php }  ?>
                     </div>
                     <!-- Email -->
                     <div class="row py-1">
@@ -143,7 +228,7 @@ class studentview extends student
                             <label for="email" class="col-form-label form-control-lg">Email:</label>
                         </div>
                         <div class="col-sm-6 col-lg-8">
-                            <input type="text" id="email" class="form-control-plaintext form-control-lg" value="<?php echo $row['email'] ?>" <?php echo $readonly; ?>>
+                            <input type="email" id="email" name="email" class="form-control<?php echo $plain_text; ?> form-control-lg" value="<?php echo $row['email'] ?>" <?php echo $readonly; ?>>
                         </div>
                     </div>
                     <!-- Contact -->
@@ -152,19 +237,19 @@ class studentview extends student
                             <label for="contact" class="col-form-label form-control-lg">Contact:</label>
                         </div>
                         <div class="col-sm-6 col-lg-8">
-                            <input type="text" id="contact" class="form-control-plaintext form-control-lg" value="<?php echo sprintf('%011d', $row['contact_number'])  ?>" <?php echo $readonly; ?>>
+                            <input type="text" id="contact" name="contact" class="form-control<?php echo $plain_text; ?> form-control-lg" value="<?php echo sprintf('%011d', $row['contact_number'])  ?>" <?php echo $readonly; ?>>
                         </div>
                     </div>
 
                     <div class="row justify-content-end pt-3">
                         <?php if (isset($_POST['edit'])) { ?>
                             <div class="col-lg-1 col-sm-2">
-                                <button type="submit" name="save" class="btn btn-orange">Save</button>
+                                <button name="save" class="btn btn-orange">Save</button>
                             </div>
                         <?php } else { ?>
 
                             <div class="col-lg-2 col-sm-3">
-                                <button type="submit" name="edit" class="btn btn-orange">Edit Profile</button>
+                                <button name="edit" class="btn btn-orange">Edit Profile</button>
                             </div>
                         <?php } ?>
                     </div>

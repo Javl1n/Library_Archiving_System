@@ -17,17 +17,6 @@ class student extends dbconnection
         return $results;
     }
 
-    protected function updateStatus($student_id, $status)
-    {
-        $sql = "UPDATE student 
-                SET status_id = ?
-                WHERE user_id = ?;";
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$status, $student_id]);
-
-        $stmt = null;
-    }
-
     protected function getCourseList()
     {
         $sql = "SELECT * FROM course";
@@ -83,5 +72,46 @@ class student extends dbconnection
         $results = $stmt->fetchAll();
 
         return $results;
+    }
+
+    protected function updateStatus($student_id, $status)
+    {
+        $sql = "UPDATE student 
+                SET status_id = ?
+                WHERE user_id = ?;";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$status, $student_id]);
+
+        $stmt = null;
+    }
+
+    protected function updateStudent($student_id, $course, $year_level)
+    {
+        $sql = "UPDATE student 
+                SET course_id = ?, year_level = ?
+                WHERE user_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $success = $stmt->execute([$course, $year_level, $student_id]);
+        if (!$success) {
+            echo 'DILI MA UPDATE ANG STUDENT';
+        }
+        $stmt = null;
+    }
+
+    protected function updateUser($student_id, $first_name, $middle_name, $last_name, $email, $contact)
+    {
+        $sql = "UPDATE user 
+                SET first_name = ?,
+                middle_name = ?,
+                last_name = ?,
+                email = ?,
+                contact_number = ?
+                WHERE user_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $success = $stmt->execute([$first_name, $middle_name, $last_name, $email, $contact, $student_id]);
+        if (!$success) {
+            echo 'DILI MA UPDATE ANG USER';
+        }
+        $stmt = null;
     }
 }
