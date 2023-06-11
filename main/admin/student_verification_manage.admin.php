@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $page = 2;
-$status = 2;
+$status = 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,40 +36,18 @@ $status = 2;
     ?>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-3 offcanvas-lg offcanvas-start text-bg-dark overflow-auto" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasResponsiveLabel">Courses</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body col-12 ">
-
-                    <form action="student_restricted_manage.admin.php" method="post">
-                        <div class="row d-sm-none d-md-block">
-                            <h2>Courses</h2>
-                        </div>
-                        <br>
-                        <?php
-                        $courses = new studentview;
-                        $courses->showcoursebuttons();
-                        ?>
-                    </form>
-
-                </div>
-            </div>
+            <?php
+            include_once '../includes/student_filter.admin.inc.php';
+            ?>
 
             <div class="col">
-                <br>
-                <div class="row">
-                    <div class="col-3 m-1">
-                        <form action="student_active_manage.admin.php" method='post'>
-                            <button type="submit" name='status' value='2' class="btn btn-orange">View Active</button>
-                        </form>
-                        <form action="student_active_manage.admin.php" method='post'>
-                            <button type="submit" name='status' value='2' class="btn btn-orange">View Active</button>
-                        </form>
-                    </div>
-                    <div class="col-2 m-1">
-                        <button class="btn btn-primary d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">Course</button>
+                <div class="row gx-2 pt-3">
+                    <div class="col-10 ms-3 mx-1">
+                        <div class="gap-3 d-block">
+                            <button class="btn btn-orange d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#courseOptions" aria-controls="courseOptions">Course</button>
+                            <a href="student_active_manage.admin.php" class="btn btn-orange">View Active</a>
+                            <a href="student_restricted_manage.admin.php" class="btn btn-orange">View Restricted</a>
+                        </div>
                     </div>
                 </div>
                 <div class="card m-3">
@@ -92,10 +70,10 @@ $status = 2;
                                 $students = new studentview;
                                 if (isset($_POST['course'])) {
                                     $cid = $_POST['course'];
-                                    $students->showStudentList_bC($cid, $status);
                                 } else {
-                                    $students->showStudentList_bSt($status);
+                                    $cid = 0;
                                 }
+                                $students->showVerificationList($cid);
                                 ?>
                             </tbody>
                         </table>

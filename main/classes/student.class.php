@@ -46,8 +46,33 @@ class student extends dbconnection
         $results = $stmt->fetchAll();
         return $results;
     }
+    protected function getStudents_vpCourse($cid)
+    {
+        $sql = "SELECT * FROM student s 
+                INNER JOIN user u ON u.user_id = s.user_id
+                INNER JOIN course c ON c.course_id = s.course_id
+                INNER JOIN student_status st ON st.status_id = s.status_id
+                WHERE s.course_id = ? AND s.verification_status_id = 2";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$cid]);
+        $results = $stmt->fetchAll();
 
-    protected function getStudents_bC($cid, $status)
+        return $results;
+    }
+    protected function getStudents_vPending()
+    {
+        $sql = "SELECT * FROM student s 
+                INNER JOIN user u ON u.user_id = s.user_id
+                INNER JOIN course c ON c.course_id = s.course_id
+                INNER JOIN student_status st ON st.status_id = s.status_id
+                WHERE s.verification_status_id = 2";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([]);
+        $results = $stmt->fetchAll();
+
+        return $results;
+    }
+    protected function getStudents_bCourse($cid, $status)
     {
         $sql = "SELECT * FROM student s 
                 INNER JOIN user u ON u.user_id = s.user_id
@@ -60,7 +85,7 @@ class student extends dbconnection
 
         return $results;
     }
-    protected function getStudents_bSt($status)
+    protected function getStudents_bStatus($status)
     {
         $sql = "SELECT * FROM student s 
                 INNER JOIN user u ON u.user_id = s.user_id
@@ -98,6 +123,19 @@ class student extends dbconnection
         $stmt = null;
     }
 
+    protected function updateStudentVerification($student_id, $ver_id)
+    {
+        $sql = "UPDATE student 
+                SET verification_status_id = ?
+                WHERE user_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $success = $stmt->execute([$ver_id, $student_id]);
+        if (!$success) {
+            echo 'DILI MA UPDATE ANG STUDENT';
+        }
+        $stmt = null;
+    }
+
     protected function updateUser($student_id, $first_name, $middle_name, $last_name, $email, $contact)
     {
         $sql = "UPDATE user 
@@ -108,10 +146,20 @@ class student extends dbconnection
                 contact_number = ?
                 WHERE user_id = ?";
         $stmt = $this->connect()->prepare($sql);
-        $success = $stmt->execute([$first_name, $middle_name, $last_name, $email, $contact, $student_id]);
-        if (!$success) {
-            echo 'DILI MA UPDATE ANG USER';
-        }
+        $stmt->execute([$first_name, $middle_name, $last_name, $email, $contact, $student_id]);
+
+        $stmt = null;
+    }
+
+    protected function submitVerReq($student_id, $photo)
+    {
+        $sql = "UPDATE student 
+            SET verification_photo = ?,
+            verification_status_id = 2
+            WHERE user_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$photo, $student_id]);
+
         $stmt = null;
     }
 }

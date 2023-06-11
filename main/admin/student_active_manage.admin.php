@@ -41,8 +41,7 @@ $status = 1;
             ?>
 
             <div class="col">
-                <br>
-                <div class="row gx-2">
+                <div class="row gx-2 pt-3">
                     <div class="col-10 ms-3 mx-1">
                         <div class="gap-3 d-block">
                             <button class="btn btn-orange d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#courseOptions" aria-controls="courseOptions">Course</button>
