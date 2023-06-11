@@ -162,4 +162,15 @@ class student extends dbconnection
 
         $stmt = null;
     }
+
+    protected function updateProfilePicture($student_id, $photo)
+    {
+        $sql = "UPDATE student 
+            SET profile_picture = ?
+            WHERE user_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$photo, $student_id]);
+
+        $stmt = null;
+    }
 }

@@ -164,8 +164,8 @@ class studentview extends student
 
     public function viewStudentVerificationRequest($student_id)
     {
-        $row = $this->showStudent($student_id);
-    ?>
+        $row = $this->showStudent($student_id); ?>
+
         <form action="../includes/submit_verification.inc.php" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-lg-3 col-sm-4 py-sm-0 ps-sm-2 pe-0">
@@ -205,8 +205,8 @@ class studentview extends student
                 </script>
             </div>
         </form>
-    <?php
-    }
+
+    <?php }
 
     public function viewStudentProfile($student)
     {
@@ -223,8 +223,62 @@ class studentview extends student
 
         <div class="row">
             <div class="col-lg-4 col-md-12 ps-4 pt-5">
+                <!-- Update Profile Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Update Profile</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form action="../includes/update_profile_picture.inc.php" method="POST" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                    <input type="hidden" name="student_id" value="<?php echo $row['user_id'] ?>">
+                                    <div class="row py-4">
+                                        <div class="col-lg-6 mx-auto">
+                                            <img id="verify_picture" class="img-fluid rounded-circle">
+                                        </div>
+                                        <script>
+                                            var loadFile = function(event) {
+                                                var image = document.getElementById('verify_picture');
+                                                image.src = URL.createObjectURL(event.target.files[0]);
+                                            };
+                                        </script>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-sm-4 py-sm-0 ps-sm-2 pe-0">
+                                            <label for="profile_update" class="col-form-label form-control-lg">file:</label>
+                                        </div>
+                                        <div class="col-sm-8 col-lg-8">
+                                            <div class="input-group">
+                                                <input type="file" name="profile" class="form-control" id="profile_update" onchange="loadFile(event)">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button name='update_profile' class="btn btn-primary">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-lg-7 col-sm-5 mx-auto">
-                    <img src="/library_archiving_system2/main/assets/profiles/default.jpg" alt="" class="img-fluid rounded-circle">
+                    <div class="row justify-content-center">
+                        <a data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <?php if (empty($row['profile_picture'])) {
+                                $profile = 'default.jpg';
+                            } else {
+                                $profile = $row['profile_picture'];
+                            } ?>
+                            <img src="/library_archiving_system2/main/assets/profiles/<?php echo $profile ?>" alt="" class="img-fluid img-thumbnail rounded-circle">
+                        </a>
+                    </div>
+
+
+
+
                 </div>
                 <h3 class="text-center pt-lg-4 pt-sm-4"><?php echo $row['first_name'] ?></h3>
                 <h6 class="text-center text-primary">
