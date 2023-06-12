@@ -5,11 +5,6 @@
     </div>
     <div class="offcanvas-body col-12">
         <?php
-        if ($_SESSION['user_type'] == 1) {
-            $action = 'article_manage.admin.php';
-        } elseif ($_SESSION['user_type'] == 2 || $_SESSION['user_type'] == 3) {
-            $action = 'article.student.php';
-        }
         ?>
         <form action="<?php echo $action; ?>" class="w-100" method="post">
             <div class="row d-sm-none d-md-block py-3">
@@ -20,10 +15,20 @@
             <?php
             $filter = new articleview;
             ?>
-
-            <a class="link-underline link-underline-opacity-0 text-white fs-4" data-bs-toggle="collapse" href="#courseOption" role="button" aria-expanded="false" aria-controls="courseOption">
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-sm-3 py-sm-0 ps-0">
+                    <label for="student_id" class="col-form-label form-control-lg fs-4">Search</label>
+                </div>
+                <div class="col-sm-6 col-lg-9 pe-4">
+                    <div class="input-group input-group-md text-bg-dark">
+                        <input type="text" id="search" class="form-control text-bg-dark">
+                        <button class="btn btn-outline-light" type="submit" name="year_search">Search</button>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <a class="link-underline link-underline-opacity-0 text-white fs-4 ps-1" data-bs-toggle="collapse" href="#courseOption" role="button" aria-expanded="false" aria-controls="courseOption">
                 Courses
-
             </a>
             <div class="collapse" id="courseOption">
                 <br>
@@ -33,7 +38,7 @@
             </div>
             <hr>
 
-            <a class="link-underline link-underline-opacity-0 text-white fs-4" data-bs-toggle="collapse" href="#tags" role="button" aria-expanded="false" aria-controls="tags">
+            <a class="link-underline link-underline-opacity-0 text-white fs-4 ps-1" data-bs-toggle="collapse" href="#tags" role="button" aria-expanded="false" aria-controls="tags">
                 Tags
             </a>
             <div class="collapse" id="tags">
@@ -43,9 +48,34 @@
                 ?>
             </div>
             <hr>
-
-            <div class="input-group input-group-md text-bg-dark">
-                <span class="input-group-text text-bg-dark" id="basic-addon1">Year</span>
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-sm-4 py-sm-0 ps-0">
+                    <label for="student_id" class="col-form-label form-control-lg fs-4">Year</label>
+                </div>
+                <div class="col-sm-6 col-lg-9 pe-4">
+                    <div class="input-group input-group-md text-bg-dark">
+                        <select class="form-select text-bg-dark" id="inputGroupSelect04" name="year" aria-label="Example select with button addon">
+                            <?php
+                            for ($year = 2017; $year <= 2023; $year++) {
+                                if (isset($_POST['year_search'])) {
+                                    if ($year == $_POST['year']) {
+                                        $selected = 'selected';
+                                    } else {
+                                        $selected = ' ';
+                                    }
+                                } else {
+                                    $selected = '';
+                                }
+                            ?>
+                                <option value="<?php echo $year; ?>" <?php echo $selected; ?>><?php echo $year; ?></option>
+                            <?php } ?>
+                        </select>
+                        <button class="btn btn-outline-light" type="submit" name="year_search">Search</button>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <!-- <div class="input-group input-group-md text-bg-dark">
                 <select class="form-select text-bg-dark" id="inputGroupSelect04" name="year" aria-label="Example select with button addon">
                     <?php
                     for ($year = 2017; $year <= 2023; $year++) {
@@ -64,10 +94,10 @@
                 </select>
                 <button class="btn btn-outline-light" type="submit" name="year_search">Search</button>
             </div>
-            <hr>
-            <div class="row justify-content-end pt-3 px-5">
+            <hr> -->
+            <div class="row justify-content-end pt-3 pe-lg-4 pe-5">
                 <div class="col-2">
-                    <a class="btn btn-outline-light btn-lg" href="<?php echo $action; ?>">Reset</a>
+                    <a class="btn btn-outline-light" href="<?php echo $action; ?>">Reset</a>
                 </div>
             </div>
         </form>

@@ -17,17 +17,15 @@ class signup extends dbconnection
     }
     protected function setStudent($user_id, $course_id, $year)
     {
-
-
-        $sql2 = 'INSERT INTO student (user_id, course_id, year_level, status_id) VALUES (?, ?, ?, 3)';
+        $sql2 = 'INSERT INTO student (user_id, course_id, year_level, status_id, verification_status_id) VALUES (?, ?, ?, 1, 3)';
         $stmt2 = $this->connect()->prepare($sql2);
 
         if (!$stmt2->execute(array($user_id, $course_id, $year))) {
-            $stmt = null;
+            $stmt2 = null;
             header('location: ../signup.php?error=stmtfailed ');
             exit();
         }
-        $stmt = null;
+        $stmt2 = null;
     }
 
     protected function checkUser($user_id)

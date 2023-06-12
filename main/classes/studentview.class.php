@@ -154,7 +154,6 @@ class studentview extends student
                         <div class="col-lg-2 col-sm-3">
                             <button name="verify" class="btn btn-success">Verify</button>
                         </div>
-
                     </div>
                 </form>
             </div>
@@ -272,7 +271,7 @@ class studentview extends student
                             } else {
                                 $profile = $row['profile_picture'];
                             } ?>
-                            <img src="/library_archiving_system2/main/assets/profiles/<?php echo $profile ?>" alt="" class="img-fluid img-thumbnail rounded-circle">
+                            <img src="/library_archiving_system2/main/assets/profiles/<?php echo $profile ?>" alt="profile picture" class="img-fluid img-thumbnail rounded-circle">
                         </a>
                     </div>
 

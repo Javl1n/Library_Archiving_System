@@ -8,8 +8,8 @@ include '../includes/js.inc.php';
 spl_autoload_register('myAutoLoaderAdmin');
 
 
-$page = 1;
-$action = 'article.student.php';
+$page = 3;
+$action = 'my_upload.student.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,12 +40,15 @@ $action = 'article.student.php';
             ?>
 
             <div class="col">
-                <br>
+                <div class="row gx-2 pt-3 ps-3">
+                    <h4>Articles Uploaded by <?php echo $_SESSION['first_name'] . ' id: ' . $_SESSION['user_id'] ?></h4>
+                </div>
                 <div class="row gx-2">
                     <div class="col-10 ps-4">
                         <div class="gap-3 d-block">
                             <!-- <a class="btn btn-orange" href="article.student.php">View all</a> -->
-                            <button class="btn btn-orange d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#filters" aria-controls="filters">filters</button>
+                            <a class="btn btn-orange d-lg-none" data-bs-toggle="offcanvas" data-bs-target="#filters" aria-controls="filters">Filters</a>
+                            <a class="btn btn-orange" href="upload_article.student.php">Upload</a>
                         </div>
                     </div>
                 </div>
@@ -58,6 +61,7 @@ $action = 'article.student.php';
                                     <th class='col-4' scope="col">Title</th>
                                     <th class='col' scope="col">Published</th>
                                     <th class='col-4' scope="col">Course</th>
+                                    <th class='col' scope="col">Status</th>
                                     <th class='col' scope="col">Options</th>
                                 </tr>
                             </thead>
@@ -81,7 +85,7 @@ $action = 'article.student.php';
                                     $tag = 0;
                                     $year = 0;
                                 }
-                                $articles->showArticles($cid, $tag, $year);
+                                $articles->showMyArticles($_SESSION['user_id'], $cid, $tag, $year);
                                 ?>
                             </tbody>
                         </table>

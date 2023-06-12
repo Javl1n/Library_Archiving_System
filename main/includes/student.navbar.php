@@ -31,7 +31,7 @@ if ($page == 1) {
                 if ($row['verification_status_id'] == 1) {
                 ?>
                     <li class='nav-item'>
-                        <p class='h4'><a class='nav-link <?php echo $requests; ?>' href='#'>My Uploads</a></p>
+                        <p class='h4'><a class='nav-link <?php echo $requests; ?>' href='my_upload.student.php'>MyUploads</a></p>
                     </li>
                 <?php
                 }

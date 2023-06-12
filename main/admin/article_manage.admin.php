@@ -11,6 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $page = 1;
+$action = 'article_manage.admin.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
