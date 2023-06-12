@@ -18,4 +18,49 @@ class articlecontr extends article
             }
         }
     }
+
+    public function editArticle($id, $title, $cid, $description, $authors, $tags)
+    {
+        $this->updateArticle($id, $title, $cid, $description);
+
+
+        if (!empty($authors)) {
+            $this->deleteAuthors($id);
+            foreach ($authors as $author) {
+                $this->setAuthors($id, $author);
+            }
+        }
+
+        if (!empty($tags)) {
+            $this->deleteTags($id);
+            foreach ($tags as $tag) {
+                $this->setTags($id, $tag);
+            }
+        }
+    }
+
+    public function editArticleStatus($id, $status_id)
+    {
+        $this->updateArticleStatus($id, $status_id);
+    }
+
+    public function deleteArticle($id)
+    {
+        $article = $this->getArticle($id);
+        $tags = $this->getArticleWTags($id);
+        $authors = $this->getArticleWAuthors($id);
+
+        if ($article['article_status_id'] != 3) {
+            $this->setArchive($article);
+            foreach ($tags as $tag) {
+                $this->setArchiveTags($tag['article_id'], $tag['tag_id']);
+            }
+            foreach ($authors as $author) {
+                $this->setArchiveAuthors($author['article_id'], $author['student_id']);
+            }
+        }
+        $this->deleteAuthors($id);
+        $this->deleteTags($id);
+        $this->permadeleteArticle($id);
+    }
 }

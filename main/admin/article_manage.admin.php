@@ -86,7 +86,7 @@ $action = 'article_manage.admin.php';
                                     $tag = 0;
                                     $year = 0;
                                 }
-                                $articles->showArticles($cid, $tag, $year);
+                                $articles->showArticles($cid, $tag, $year, $_SESSION['user_type']);
                                 ?>
                             </tbody>
                     </div>

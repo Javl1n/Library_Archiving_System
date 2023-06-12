@@ -24,7 +24,7 @@ if ($page == 1) {
                     <p class='h4'><a class='nav-link <?php echo $student; ?>' href='student_active_manage.admin.php'>Manage Student</a></p>
                 </li>
                 <li class='nav-item'>
-                    <p class='h4'><a class='nav-link <?php echo $requests; ?>' href='#'>Manage Requests</a></p>
+                    <p class='h4'><a class='nav-link <?php echo $requests; ?>' href='manage_request.admin.php'>Manage Requests</a></p>
                 </li>
             </ul>
             <span class="navbar-brand mb-0 h1"><?php echo $_SESSION['first_name'] ?></span>

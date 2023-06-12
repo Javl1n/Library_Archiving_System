@@ -46,9 +46,9 @@ $action = 'my_upload.student.php';
                 <div class="row gx-2">
                     <div class="col-10 ps-4">
                         <div class="gap-3 d-block">
-                            <!-- <a class="btn btn-orange" href="article.student.php">View all</a> -->
                             <a class="btn btn-orange d-lg-none" data-bs-toggle="offcanvas" data-bs-target="#filters" aria-controls="filters">Filters</a>
                             <a class="btn btn-orange" href="upload_article.student.php">Upload</a>
+                            <a class="btn btn-dark" href="my_archive.student.php">My Archive</a>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@ $action = 'my_upload.student.php';
                                     <th class='col' scope="col">Published</th>
                                     <th class='col-4' scope="col">Course</th>
                                     <th class='col' scope="col">Status</th>
-                                    <th class='col' scope="col">Options</th>
+                                    <th class='col-2 text-center' scope="col">Options</th>
                                 </tr>
                             </thead>
                             <tbody>
