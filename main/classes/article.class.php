@@ -32,6 +32,15 @@ class article extends dbconnection
         $stmt = null;
     }
 
+    protected function deleteArchiveAuthors($id)
+    {
+        $sql = "DELETE FROM archive_author WHERE archive_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id]);
+
+        $stmt = null;
+    }
+
     protected function setArchiveTags($id, $tag)
     {
         $sql = "INSERT INTO archive_tag (archive_id, tag_id) VALUES (?, ?)";
@@ -41,11 +50,138 @@ class article extends dbconnection
         $stmt = null;
     }
 
-    protected function getArchives()
+
+    protected function deleteArchiveTags($id)
+    {
+        $sql = "DELETE FROM archive_tag WHERE archive_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id]);
+
+        $stmt = null;
+    }
+
+    protected function getArchive($id)
+    {
+        $sql = "SELECT * FROM archive art
+                INNER JOIN course c ON c.course_id = art.course_id
+                INNER JOIN archive_status ars ON ars.archive_status_id = art.archive_status_id
+                WHERE art.archive_id = ?";
+
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id]);
+
+        $results = $stmt->fetch();
+        return $results;
+    }
+
+    protected function getArchiveWTags($id)
+    {
+        $sql = "SELECT * FROM archive art
+                    INNER JOIN course c ON c.course_id = art.course_id
+                    INNER JOIN archive_status ars ON ars.archive_status_id = art.archive_status_id
+                    INNER JOIN (archive_tag artag 
+                                    INNER JOIN tag t ON t.tag_id = artag.tag_id)
+                        ON artag.archive_id = art.archive_id
+                WHERE art.archive_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id]);
+
+        $results = $stmt->fetchALL();
+        return $results;
+    }
+
+    protected function getArchiveWAuthors($id)
+    {
+
+        $sql = "SELECT * FROM archive art
+                    INNER JOIN course c ON c.course_id = art.course_id
+                    INNER JOIN archive_status ars ON ars.archive_status_id = art.archive_status_id
+                    INNER JOIN (archive_author auth 
+                                    INNER JOIN user u ON u.user_id = auth.student_id)
+                        ON auth.archive_id = art.archive_id
+                WHERE art.archive_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id]);
+
+        $results = $stmt->fetchALL();
+        return $results;
+    }
+
+    protected function getAuthArchives($id)
+    {
+        $sql = "SELECT * FROM archive_author auth
+                INNER JOIN (archive arc 
+                            INNER JOIN course ac ON ac.course_id = arc.course_id
+                            INNER JOIN archive_status ars ON ars.archive_status_id = arc.archive_status_id)
+                    ON arc.archive_id = auth.archive_id
+                WHERE auth.student_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id]);
+
+        $results = $stmt->fetchAll();
+        return $results;
+    }
+
+
+    protected function getMyArchivesWithCourse($id, $course)
+    {
+        $sql = "SELECT * FROM archive_author auth
+                INNER JOIN (archive arc
+                            INNER JOIN course c ON c.course_id = arc.course_id
+                            INNER JOIN archive_status ars ON ars.archive_status_id = arc.article_status_id)
+                    ON arc.archive_id = auth.archive_id
+                WHERE arc.course_id = ? AND auth.student_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$course, $id]);
+
+        $results = $stmt->fetchAll();
+        return $results;
+    }
+
+    protected function getMyArchivesbyYear($id, $year)
+    {
+        $sql = "SELECT * FROM archive_author auth
+                INNER JOIN (article arc 
+                            INNER JOIN course c ON c.course_id = arc.course_id
+                            INNER JOIN archive_status ars ON ars.archive_status_id = arc.archive_status_id)
+                ON arc.archive_id = auth.archive_id
+                WHERE auth.student_id = ? AND YEAR(arc.year_published) = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id, $year]);
+        $results = $stmt->fetchAll();
+        return $results;
+    }
+
+    protected function getMyArchivesWithTags($id, $tag)
+    {
+        $sql = "SELECT * FROM archive_author auth
+                    INNER JOIN (archive_tag atag
+                                    INNER JOIN (archive arc
+                                                    INNER JOIN course c ON c.course_id = arc.course_id
+                                                    INNER JOIN archive_status ars ON ars.archive_status_id = arc.archive_status_id)
+                                    ON arc.article_id = atag.article_id
+                                    INNER JOIN tag ON tag.tag_id = atag.tag_id)
+                    ON atag.archive_id = auth.archive_id
+                WHERE auth.student_id = ? AND atag.tag_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id, $tag]);
+
+        $results = $stmt->fetchAll();
+        return $results;
+    }
 
     protected function permaDeleteArticle($id)
     {
         $sql = "DELETE FROM article WHERE article_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id]);
+
+        $stmt = null;
+    }
+
+    protected function permaDeleteArchive($id)
+    {
+        $sql = "DELETE FROM archive WHERE archive_id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$id]);
 
@@ -70,6 +206,17 @@ class article extends dbconnection
         $sql = "UPDATE article
                 SET article_status_id = ?
                 WHERE article_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$status, $id]);
+
+        $stmt = null;
+    }
+
+    protected function updateArchiveStatus($id, $status)
+    {
+        $sql = "UPDATE archive
+                SET archive_status_id = ?
+                WHERE archive_id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$status, $id]);
 
@@ -124,6 +271,16 @@ class article extends dbconnection
         $stmt2->execute();
         $results = $stmt2->fetchAll();
         return $results;
+    }
+
+    protected function resetArticle($article)
+    {
+        $sql = "INSERT INTO article (article_id, article_title, year_published,  article_description, course_id, article_status_id) VALUES (?, ?, ?, ?, ?, 1);";
+
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$article['archive_id'], $article['archive_title'], $article['year_published'], $article['article_description'], $article['course_id']]);
+
+        $stmt = null;
     }
 
     protected function getArticle($id)
@@ -232,6 +389,18 @@ class article extends dbconnection
                 WHERE a.article_status_id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$status]);
+
+        $results = $stmt->fetchAll();
+        return $results;
+    }
+
+    protected function getArchives()
+    {
+        $sql = "SELECT * FROM archive a
+                INNER JOIN course c ON c.course_id = a.course_id
+                INNER JOIN archive_status ast ON ast.archive_status_id = a.archive_status_id";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
 
         $results = $stmt->fetchAll();
         return $results;

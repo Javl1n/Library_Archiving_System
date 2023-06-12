@@ -8,8 +8,8 @@ include '../includes/js.inc.php';
 spl_autoload_register('myAutoLoaderAdmin');
 
 
-$page = 3;
-$action = 'my_upload.student.php';
+$page = 4;
+$action = 'manage_archive.admin.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +30,7 @@ $action = 'my_upload.student.php';
 
 <body>
     <?php
-    include_once '../includes/student.navbar.php';
+    include_once '../includes/admin.navbar.php';
     ?>
 
     <div class="container-fluid">
@@ -40,15 +40,10 @@ $action = 'my_upload.student.php';
             ?>
 
             <div class="col">
-                <div class="row gx-2 pt-3 ps-3">
-                    <h4>Articles Uploaded by <?php echo $_SESSION['first_name'] . ' id: ' . $_SESSION['user_id'] ?></h4>
-                </div>
-                <div class="row gx-2">
+                <div class="row gx-2 mt-3">
                     <div class="col-10 ps-4">
                         <div class="gap-3 d-block">
                             <a class="btn btn-orange d-lg-none" data-bs-toggle="offcanvas" data-bs-target="#filters" aria-controls="filters">Filters</a>
-                            <a class="btn btn-orange" href="upload_article.student.php">Upload</a>
-                            <a class="btn btn-dark" href="my_archives.student.php">My Archive</a>
                         </div>
                     </div>
                 </div>
@@ -61,8 +56,8 @@ $action = 'my_upload.student.php';
                                     <th class='col-4' scope="col">Title</th>
                                     <th class='col' scope="col">Published</th>
                                     <th class='col-4' scope="col">Course</th>
-                                    <th class='col' scope="col">Status</th>
-                                    <th class='col-2 text-center' scope="col">Options</th>
+                                    <th class='col-2' scope="col">Status</th>
+                                    <th class='col-1 text-center' scope="col">Options</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -85,7 +80,7 @@ $action = 'my_upload.student.php';
                                     $tag = 0;
                                     $year = 0;
                                 }
-                                $articles->showMyArticles($_SESSION['user_id'], $cid, $tag, $year);
+                                $articles->showArchives($_SESSION['user_id'], $cid, $tag, $year);
                                 ?>
                             </tbody>
                         </table>

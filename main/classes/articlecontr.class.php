@@ -63,4 +63,26 @@ class articlecontr extends article
         $this->deleteTags($id);
         $this->permadeleteArticle($id);
     }
+
+    public function retrieveArticle($id)
+    {
+        $article = $this->getArchive($id);
+        $tags = $this->getArchiveWTags($id);
+        $authors = $this->getArchiveWAuthors($id);
+        $this->resetArticle($article);
+        foreach ($tags as $tag) {
+            $this->setTags($tag['archive_id'], $tag['tag_id']);
+        }
+        foreach ($authors as $author) {
+            $this->setAuthors($author['archive_id'], $author['student_id']);
+        }
+        $this->deleteArchiveAuthors($id);
+        $this->deleteArchiveTags($id);
+        $this->permadeleteArchive($id);
+    }
+
+    public function editArchiveStatus($id, $status_id)
+    {
+        $this->updateArchiveStatus($id, $status_id);
+    }
 }

@@ -46,6 +46,118 @@ class articleview extends article
     <?php
     }
 
+    public function showMyArchive($article_id)
+    {
+        $article = $this->getArchive($article_id);
+        $tags = $this->getArchiveWTags($article_id);
+        $authors = $this->getArchiveWAuthors($article_id); ?>
+
+        <!-- Title -->
+        <div class="row py-3">
+            <div class="col-lg-2 col-sm-4 py-sm-0 ps-sm-2">
+                <label for="title" class="col-form-label form-control-lg">Title:</label>
+            </div>
+            <div class="col-sm-7 col-lg-10">
+                <input type="text" id="title" value="<?php echo $article['archive_title'] ?>" class="form-control-plaintext form-control-lg" readonly>
+            </div>
+        </div>
+        <!-- Course -->
+        <div class="row py-1">
+            <div class="col-lg-2 col-sm-4 py-sm-0 ps-sm-2">
+                <label for="course" class="col-form-label form-control-lg">Course:</label>
+            </div>
+
+            <div class="col-sm-7 col-lg-10">
+                <?php $course_full = $article['abbreviation'] . ' - ' . $article['course_title'] ?>
+                <input type="text" class="form-control-plaintext form-control-lg" value="<?php echo $course_full ?>" readonly>
+            </div>
+        </div>
+        <div class="row row-cols-2">
+            <!-- Authors -->
+            <div class="row py-3">
+                <div class="col-lg-2 col-sm-4 py-sm-0 ps-sm-2">
+                    <label for="first_name" class="col-form-label form-control-lg">Authors:</label>
+                </div>
+                <div class="col-sm-7 col-lg-10">
+                    <div class="card" style="height: 100px">
+                        <div class="card-body mh-100 overflow-y-scroll gap-5 d-block">
+                            <?php foreach ($authors as $author) {
+                                if (!empty($author['middle_name'])) {
+                                    $MI = $author['middle_name'][0];
+                                } else {
+                                    $MI = '';
+                                }
+                                $fullName = $author['first_name'] . ' ' . $MI . '. ' . $author['last_name']; ?>
+                                <button class="btn btn-orange my-1"><?php echo $fullName ?></button>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Tags -->
+            <div class="row py-3">
+                <div class="col-lg-2 col-sm-4 py-sm-0 ps-sm-2">
+                    <label for="first_name" class="col-form-label form-control-lg">Tags:</label>
+                </div>
+                <div class="col-sm-7 col-lg-10">
+                    <div class="card" style="height: 100px">
+                        <div class="card-body mh-100 overflow-y-scroll">
+                            <?php foreach ($tags as $tag) { ?>
+                                <a class="btn btn-orange mt-1"><?php echo $tag['tag_title'] ?></a>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Abstraction -->
+        <div class="row py-3 justify-content-center">
+            <h1 class="text-center">ABSTRACTION</h1>
+        </div>
+        <div class="row py-3 justify-content-center">
+            <div class="col-7">
+                <div class="card">
+                    <div class="card-body">
+                        <p><?php echo $article['article_description'] ?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php if ($article['archive_status_id'] == 2) {
+            if ($_SESSION['user_type'] == 1) { ?>
+                <div class="row justify-content-end">
+                    <div class="col-1">
+                        <form action="../includes/retrieve_article.inc.php" method="POST">
+                            <button class="btn btn-success" type="submit" name="retrieve" value="<?php echo $article['archive_id'] ?>">
+                                Retrieve
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            <?php } elseif ($_SESSION['user_type'] == 2) { ?>
+                <div class="row justify-content-end">
+                    <div class="col-2">
+                        <input hidden name='article_id' value="<?php echo $article['archive_id'] ?>">
+                        <button class="btn btn-success ms-4" type="submit">
+                            Request Pending
+                        </button>
+                    </div>
+                </div>
+            <?php }
+        } elseif ($article['archive_status_id'] == 1) { ?>
+            <div class="row justify-content-end">
+                <div class="col-2">
+                    <form action="../includes/update_archive_status.inc.php" method="POST">
+                        <input hidden name='article_id' value="<?php echo $article['archive_id'] ?>">
+                        <button class="btn btn-success" type="submit" name="retrieve" value="2">
+                            Send Retrieval Request
+                        </button>
+                    </form>
+                </div>
+            </div>
+        <?php }
+    }
+
     public function showArticle($article_id)
     {
         $article = $this->getArticle($article_id);
@@ -207,53 +319,59 @@ class articleview extends article
     public function showMyArchives($id, $cid, $tid, $year)
     {
         if ($cid != 0) {
-            $articles = $this->getMyArticlesWithCourse($id, $cid);
+            $articles = $this->getMyArchivesWithCourse($id, $cid);
         } elseif ($tid != 0) {
-            $articles = $this->getMyArticlesWithTags($id, $tid);
+            $articles = $this->getMyArchivesWithTags($id, $tid);
         } elseif ($year != 0) {
-            $articles = $this->getMyArticlesbyYear($id, $year);
+            $articles = $this->getMyArchivesbyYear($id, $year);
         } else {
-            $articles = $this->getAuthArticles($id);
+            $articles = $this->getAuthArchives($id);
         }
 
         foreach ($articles as $article) { ?>
             <tr>
-                <td><?php echo $article['article_id'] ?></th>
-                <td><?php echo $article['article_title'] ?></td>
+                <td><?php echo $article['archive_id'] ?></th>
+                <td><?php echo $article['archive_title'] ?></td>
                 <td><?php echo $article['year_published'] ?></td>
                 <td><?php echo $article['course_title'] . ' (' . $article['abbreviation'] . ')'; ?></td>
-                <td><?php echo $article['article_status_title']; ?></td>
+                <td><?php echo $article['archive_status_title']; ?></td>
                 <td>
-                    <?php if ($article['article_status_id'] == 3) { ?>
-                        <form action="../includes/delete_article.inc.php" method='post'>
-                            <button class="btn btn-danger w-100" name="delete" type="submit" value="<?php echo $article['article_id'] ?>">
-                                Delete
-                            </button>
-                        </form>
-                    <?php } elseif ($article['article_status_id'] == 2) { ?>
-                        <form action="my_article.student.php" method='post'>
-                            <button class="btn btn-orange w-100" name="edit" type="submit" value="<?php echo $article['article_id'] ?>">
-                                Edit
-                            </button>
-                        </form>
-                    <?php } elseif ($article['article_status_id'] == 1) { ?>
+                    <form action="my_archive.student.php" method='post'>
+                        <button class="btn btn-outline-dark w-100" name="view" type="submit" value="<?php echo $article['archive_id'] ?>">
+                            View
+                        </button>
+                    </form>
+                </td>
+            </tr>
 
+        <?php }
+    }
 
-                        <div class="row justify-content-center">
-                            <div class="col-5 ">
-                                <form action="my_article.student.php" method='post'>
-                                    <button class="btn btn-orange w-100 " name="edit" type="submit" value="<?php echo $article['article_id'] ?>">Edit</button>
-                                </form>
-                            </div>
-                            <div class="col-6">
-                                <form action="../includes/delete_article.inc.php" method='post'>
-                                    <button class="btn btn-danger w-100 " name="delete" type="submit" value="<?php echo $article['article_id'] ?>">
-                                        Delete
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    <?php } ?>
+    public function showArchives($id, $cid, $tid, $year)
+    {
+        if ($cid != 0) {
+            $articles = $this->getMyArchivesWithCourse($id, $cid);
+        } elseif ($tid != 0) {
+            $articles = $this->getMyArchivesWithTags($id, $tid);
+        } elseif ($year != 0) {
+            $articles = $this->getMyArchivesbyYear($id, $year);
+        } else {
+            $articles = $this->getArchives();
+        }
+
+        foreach ($articles as $article) { ?>
+            <tr>
+                <td><?php echo $article['archive_id'] ?></th>
+                <td><?php echo $article['archive_title'] ?></td>
+                <td><?php echo $article['year_published'] ?></td>
+                <td><?php echo $article['course_title'] . ' (' . $article['abbreviation'] . ')'; ?></td>
+                <td><?php echo $article['archive_status_title']; ?></td>
+                <td>
+                    <form action="view_archive.admin.php" method='post'>
+                        <button class="btn btn-outline-dark w-100" name="view" type="submit" value="<?php echo $article['archive_id'] ?>">
+                            View
+                        </button>
+                    </form>
                 </td>
             </tr>
 

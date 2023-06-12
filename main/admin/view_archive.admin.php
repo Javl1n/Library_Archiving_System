@@ -8,7 +8,7 @@ include '../includes/js.inc.php';
 spl_autoload_register('myAutoLoaderAdmin');
 
 
-$page = 3;
+$page = 4;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +29,7 @@ $page = 3;
 
 <body>
     <?php
-    include_once '../includes/student.navbar.php';
+    include_once '../includes/admin.navbar.php';
     ?>
 
     <div class="container">

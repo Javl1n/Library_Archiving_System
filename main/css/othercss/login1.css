@@ -6,9 +6,6 @@ body{
 	overflow: hidden;
 }
 .center{
-	position: absolute;
-	top: 50%;
-	left: 75%;
 	transform: translate(-50%, -50%);
 	width: 400px;
 	background: #e6e4e3;

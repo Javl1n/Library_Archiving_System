@@ -5,6 +5,8 @@ if ($page == 1) {
     $student = "active' aria-current='page";
 } elseif ($page == 3) {
     $requests = "active' aria-current='page";
+} elseif ($page == 4) {
+    $archive = "active' aria-current='page";
 }
 ?>
 <nav class='navbar sticky-top navbar-expand-lg bg-white '>
@@ -25,6 +27,9 @@ if ($page == 1) {
                 </li>
                 <li class='nav-item'>
                     <p class='h4'><a class='nav-link <?php echo $requests; ?>' href='manage_request.admin.php'>Manage Requests</a></p>
+                </li>
+                <li class='nav-item'>
+                    <p class='h4'><a class='nav-link <?php echo $archive; ?>' href='manage_archive.admin.php'>Manage Archive</a></p>
                 </li>
             </ul>
             <span class="navbar-brand mb-0 h1"><?php echo $_SESSION['first_name'] ?></span>

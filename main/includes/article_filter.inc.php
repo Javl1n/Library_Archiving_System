@@ -15,18 +15,6 @@
             <?php
             $filter = new articleview;
             ?>
-            <div class="row align-items-center">
-                <div class="col-lg-3 col-sm-3 py-sm-0 ps-0">
-                    <label for="student_id" class="col-form-label form-control-lg fs-4">Search</label>
-                </div>
-                <div class="col-sm-6 col-lg-9 pe-4">
-                    <div class="input-group input-group-md text-bg-dark">
-                        <input type="text" id="search" class="form-control text-bg-dark">
-                        <button class="btn btn-outline-light" type="submit" name="year_search">Search</button>
-                    </div>
-                </div>
-            </div>
-            <hr>
             <a class="link-underline link-underline-opacity-0 text-white fs-4 ps-1" data-bs-toggle="collapse" href="#courseOption" role="button" aria-expanded="false" aria-controls="courseOption">
                 Courses
             </a>
